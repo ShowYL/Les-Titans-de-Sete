@@ -1,0 +1,50 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-color:#dad6dc;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card{
+    margin-top:10%;
+    min-width: 300px;
+    min-height: 400px;
+    max-width: 500px;
+    max-height: 600px;
+    height:80%;
+    width:40%;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+h1{
+    text-align: center;
+    margin-top: 20px;
+}
+
+table{
+    margin:15% auto;
+}
+
+td, th {
+    padding: 2%;
+}
+
+button{
+    min-width:104%;
+    padding:3%;
+    margin-top:2%;
+}
+
+table p {
+    font-size: 10px;
+    color: #333;
+}
