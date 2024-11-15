@@ -1,7 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Open sans';
 }
 
 body{
@@ -27,11 +30,13 @@ body{
 
 h1{
     text-align: center;
-    margin-top: 20px;
+    margin-top: 50px;
 }
 
 table{
     margin:15% auto;
+    width:60%;
+    height:100%;
 }
 
 td, th {
@@ -45,7 +50,7 @@ button{
 }
 
 table p {
-    font-size: 11px;
+    font-size: 13px;
     white-space: nowrap;
     display:inline;    
     max-width: 100%;         
