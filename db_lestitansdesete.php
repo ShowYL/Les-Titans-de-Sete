@@ -1,4 +1,4 @@
-<? php
+<?php
 
 // a modifier plus tard pour le serveur en ligne
 $servername = "localhost"; 
