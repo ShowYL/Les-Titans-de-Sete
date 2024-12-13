@@ -1,15 +1,15 @@
 <?php
 
 // a modifier plus tard pour le serveur en ligne
-$servername = "localhost"; 
-$username = "root";
-$password = "";
-$dbname = "db_lestitansdesete";
-$socket = "/Applications/XAMPP/xamppfiles/var/mysql/mysql.sock"; // Chemin du socket MySQL
+$servername = "mysql-lestitansdesete.alwaysdata.net";
+$username = "385432";
+$password = "\$iutinfo";
+$dbname = "lestitansdesete_bd";
+$port = "3306";
 
 // créer une connexion
 
-$conn = new mysqli($servername, $username, $password, $dbname, null, $socket);
+$conn = new mysqli($servername, $username, $password, $dbname);
 
 // vérifier la connexion
 
