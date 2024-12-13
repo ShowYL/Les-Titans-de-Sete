@@ -5,10 +5,11 @@ $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "db_lestitansdesete";
+$socket = "/Applications/XAMPP/xamppfiles/var/mysql/mysql.sock"; // Chemin du socket MySQL
 
 // créer une connexion
 
-$conn = new mysqli($servername, $username, $password, $dbname);
+$conn = new mysqli($servername, $username, $password, $dbname, null, $socket);
 
 // vérifier la connexion
 

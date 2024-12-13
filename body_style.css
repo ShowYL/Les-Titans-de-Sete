@@ -1,0 +1,33 @@
+/* body */
+body {
+    margin: 0;
+}
+
+
+/* Style pour le container principal */
+.container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100vh;
+}
+
+/* Style pour la barre latérale gauche */
+.leftBar {
+    width: 150px; 
+    background-color: #e3e3e3; 
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    display: flex;
+}
+
+/* Style pour le contenu principal */
+.right-content {
+    flex-grow: 1;
+    background-color: #cecece;
+}
+
+.topBar{
+    width: 100%;
+    height: 100px;
+    margin-top: -21px;
+}
