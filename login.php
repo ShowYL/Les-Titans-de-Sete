@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if (password_verify($passwordSend, $user['password'])) {
             $_SESSION['loggedin'] = true;
             $_SESSION['user_id'] = $user['ID_User'];
-            header('Location: acceuil.php');
+            header('Location: accueil.php');
             exit();
         } else {
             $error = 'Invalid email or password';
