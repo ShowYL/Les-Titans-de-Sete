@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Les Titants de Sete</title>
     <!-- <link rel="stylesheet" href="style.css"> -->
+    <link rel="stylesheet" href="global-Style.css">
     <link rel="stylesheet" href="headerfooter-style.css">
     <link rel="stylesheet" href="body_style.css">
 </head>
@@ -15,14 +16,14 @@
         </div>
         <div class='right-content'>
             <div class='topBar'>
+                <!-- créer un composant header pour la div test plus tard!  -->
                 <div class='test'> 
                     <h1>Les Titants de Sete</h1>
-                    <p>Club de football américain</p>s
                 </div>
             </div>
             <div class='main-content'>
-                <h1>Accueil</h1>
-                <p>Bienvenue sur le site des Titants de Sete. Vous trouverez ici toutes les informations sur notre équipe.</p>
+                <!-- <?php include 'joueur.php'; ?> -->
+                <?php include 'match.php'; ?>
             </div>
         </div>
     </div>
