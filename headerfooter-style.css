@@ -2,6 +2,11 @@
                     /* Style du header  */
 /* ------------------------------------------------------ */
 
+.logo{
+    width: 75%;
+    height: 10%;
+}
+
 .navi {
     background-color: #333;
     color: white;

@@ -1,7 +1,7 @@
 <!-- nav.php -->
 <div class='navi' >
     <nav>
-        <img src="images/logo.png" alt="logo">
+        <img src="../logo-white-version.png" alt="logo" class="logo">
         <ul>
             <li><a href="acceuil.php">Accueil</a></li>
             <li><a href="joueurs.php">Joueurs</a></li>
