@@ -1,23 +1,20 @@
 <?php
-
 session_start(); // Démarrer la session
-
-
 
 require 'db_lestitansdesete.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $name = $_POST['nomUtilisateur'];
-    $password = $_POST['password'];
+    $passwordSend = $_POST['password'];
 
-    $stmt = $conn->prepare("SELECT * FROM User WHERE Nom_Utilisateur = ?");
+    $stmt = $conn->prepare("SELECT user FROM User WHERE Nom_Utilisateur = ?");
     $stmt->bind_param("s", $name);
     $stmt->execute();
     $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
         $user = $result->fetch_assoc();
-        if (password_verify($password, $user['Password'])) {
+        if (password_verify($passwordSend, $user['password'])) {
             $_SESSION['loggedin'] = true;
             $_SESSION['user_id'] = $user['ID_User'];
             header('Location: accueil.php');
