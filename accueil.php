@@ -22,8 +22,7 @@
                 </div>
             </div>
             <div class='main-content'>
-                <!-- <?php include 'joueur.php'; ?> -->
-                <?php include 'match.php'; ?>
+                <h2 class="card-title ">Accueil</h2>
             </div>
         </div>
     </div>
