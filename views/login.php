@@ -12,6 +12,13 @@ if(isset($_COOKIE['auth']) && $_COOKIE['auth']=='true'){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Les Titants de Sete</title>
     <link rel="stylesheet" href="../style/login.css">
+    <link rel="icon" href="../images/logo-black-version-background-full.png" type="image/x-icon">
+    <style>
+        link[rel="icon"] {
+            width: 16px;
+            height: 16px;
+        }
+    </style>
 </head>
 <body>
     <section class="card"><div>
