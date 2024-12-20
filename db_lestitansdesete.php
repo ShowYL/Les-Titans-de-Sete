@@ -1,19 +1,25 @@
 <?php
 
-// a modifier plus tard pour le serveur en ligne
-$servername = "mysql-lestitansdesete.alwaysdata.net";
-$username = "385432";
-$password = "\$iutinfo";
-$dbname = "lestitansdesete_bd";
-$port = "3306";
+class ConnectionBD {
+    private $conn;
+    private $servername = "mysql-lestitansdesete.alwaysdata.net";
+    private $username = "385432";
+    private $password = "\$iutinfo";
+    private $dbname = "lestitansdesete_bd";
 
-// créer une connexion
+    public function __construct() {
+        $this->conn = new mysqli($this->servername, $this->username, $this->password, $this->dbname);
+        if ($this->conn->connect_error) {
+            die("La connexion a échoué: " . $this->conn->connect_error);
+        }
+    }
 
-$conn = new mysqli($servername, $username, $password, $dbname);
+    public function getConnection() {
+        return $this->conn;
+    }
 
-// vérifier la connexion
-
-if ($conn->connect_error) {
-    die("La connexion a échoué: " . $conn->connect_error);
+    public function closeConnection() {
+        $this->conn->close();
+    }
 }
 ?>

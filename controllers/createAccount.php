@@ -1,24 +1,17 @@
 <?php
-require_once __DIR__ . '/../db_lestitansdesete.php';
-
+require_once 'AccountController.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nomUtilisateur = $_POST['nomUtilisateur'];
     $password = $_POST['password'];
 
-    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+    $controller = new AccountController();
+    $error = $controller->createAccount($nomUtilisateur, $password);
 
-    $stmt = $conn->prepare("INSERT INTO User (Password, Nom_Utilisateur) VALUES (?, ?)");
-    $stmt->bind_param("ss", $hashed_password, $nomUtilisateur);
-
-    
-    if ($stmt->execute()) {
-        echo "New account created successfully";
-    } else {
-        echo "Error: " . $stmt->error;
+    if (isset($error)) {
+        echo $error;
+    }else{
+        echo "Account created successfully";
     }
-
-    $stmt->close();
-    $conn->close();
 }
 ?>
