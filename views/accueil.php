@@ -6,7 +6,7 @@
     <title>Les Titants de Sete</title>
     <!-- <link rel="stylesheet" href="style.css"> -->
     <link rel="stylesheet" href="../global-Style.css">
-    <link rel="stylesheet" href="../headerfooter-style.css">
+    <link rel="stylesheet" href="../style/headerfooter-style.css">
     <link rel="stylesheet" href="../body_style.css">
 </head>
 <body>
