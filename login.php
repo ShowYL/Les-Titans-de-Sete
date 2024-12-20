@@ -7,7 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $name = $_POST['nomUtilisateur'];
     $passwordSend = $_POST['password'];
 
-    $stmt = $conn->prepare("SELECT user FROM User WHERE Nom_Utilisateur = ?");
+    $stmt = $conn->prepare("SELECT ID_User, password FROM User WHERE Nom_Utilisateur = ?");
     $stmt->bind_param("s", $name);
     $stmt->execute();
     $result = $stmt->get_result();
