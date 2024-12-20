@@ -1,8 +1,15 @@
 <?php
+
+if(!isset($_COOKIE['auth']) || $_COOKIE['auth']!='true'){
+    header('location: ../index.php');
+    exit();
+}
+
 require_once '../controllers/JoueurController.php';
 
 $controller = new JoueurController();
 $tableHTML = $controller->getTableHTML();
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

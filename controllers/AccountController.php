@@ -20,8 +20,9 @@ class AccountController {
         $user = $this->userModel->getUser($nomUtilisateur);
         if ($user && password_verify($password, $user['password'])) {
             session_start();
-            $_SESSION['loggedin'] = true;
             $_SESSION['user_id'] = $user['ID_User'];
+            $cookie_duration = time() + (60 * 60 * 24) ; // 1 jour
+            setcookie('auth','true',$cookie_duration,"/");
             header('Location: ../views/accueil.php');
             exit();
         } else {
