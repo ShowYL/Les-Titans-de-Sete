@@ -28,11 +28,11 @@ class createTable{
         $this->nbColonnes = count($index); // save the column size
 
         // create the "header" of the table with $index
-        $this->string = '<table><th>';
+        $this->string = '<table><tr>';
         foreach ($index as $value){
-            $this->string.='<td>'.$value.'</td>';
+            $this->string.='<th>'.$value.'</th>';
         }
-        $this->string.='</th>';
+        $this->string.='</tr>';
 
         // fill the table with the data
         foreach ($data as $ligne){
