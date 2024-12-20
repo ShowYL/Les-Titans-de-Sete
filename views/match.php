@@ -1,3 +1,15 @@
+<?php
+
+if(!isset($_COOKIE['auth'])){
+    header('location: ../index.php');
+    exit();
+}elseif($_COOKIE['auth']!='true'){
+    header('location: ../index.php');
+    exit();
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
