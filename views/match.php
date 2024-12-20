@@ -84,20 +84,6 @@ if(!isset($_COOKIE['auth']) || $_COOKIE['auth']!='true'){
                             </tr>
                         </tbody>
                     </table>
-                    <div class="pagination">
-                        <span>Rows per page: 
-                            <select>
-                                <option>10</option>
-                                <option>20</option>
-                                <option>50</option>
-                            </select>
-                        </span>
-                        <span>1 - 10 of 406</span>
-                        <button>⏮</button>
-                        <button>◀</button>
-                        <button>▶</button>
-                        <button>⏭</button>
-                    </div>
                 </div>
             </div>
         </div>

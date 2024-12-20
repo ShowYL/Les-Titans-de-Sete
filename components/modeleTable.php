@@ -28,7 +28,11 @@ class createTable{
         $this->nbColonnes = count($index); // save the column size
 
         // create the "header" of the table with $index
-        $this->string = '<table><tr>';
+        $this->string = '<div class="toolbar">
+                        <input type="text" placeholder="Search..." class="search-input">
+                        <button class="add-btn" id="addBtn">Add new</button>
+                    </div>
+                    <table><tr>';
         foreach ($index as $value){
             $this->string.='<th>'.$value.'</th>';
         }
