@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../db_lestitansdesete.php';
+require_once 'db_lestitansdesete.php';
 
 class UserModel {
     private $conn;

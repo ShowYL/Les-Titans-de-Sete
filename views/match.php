@@ -5,9 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Les Titants de Sete</title>
     <link rel="stylesheet" href="../style/table.css">
-    <link rel="stylesheet" href="../global-Style.css">
+    <link rel="stylesheet" href="../style/global-Style.css">
     <link rel="stylesheet" href="../style/headerfooter-style.css">
-    <link rel="stylesheet" href="../body_style.css">
 </head>
 <body>
     <div class="container">
