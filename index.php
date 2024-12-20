@@ -1,10 +1,6 @@
 <?php
 
-if(!isset($_COOKIE['auth'])){
-    $cookie_duration = time() + (60 * 60 * 24) ;
-
-    setcookie('auth','false',$cookie_duration,"/");
-}elseif($_COOKIE['auth']=='true'){
+if(isset($_COOKIE['auth']) && $_COOKIE['auth']=='true'){
     header('location: views/accueil.php');
     exit();
 }
