@@ -10,7 +10,7 @@ class AccountController {
 
     public function createAccount($nomUtilisateur, $password) {
         if ($this->userModel->createUser($nomUtilisateur, $password)) {
-            header('Location: ../index.html');
+            header('Location: ../views/login.php');
         } else {
             return "Error: Unable to create account";
         }

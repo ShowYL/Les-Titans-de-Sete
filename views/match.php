@@ -1,7 +1,7 @@
 <?php
 
 if(!isset($_COOKIE['auth']) || $_COOKIE['auth']!='true'){
-    header('location: ../index.php');
+    header('location: login.php');
     exit();
 }
 

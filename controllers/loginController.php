@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $error = $accountController->login($nomUtilisateur, $password);
 
     if (isset($error)) {
-        header('Location: ../index.php');
+        header('Location: ../views/login.php');
         exit();
     }
 }
