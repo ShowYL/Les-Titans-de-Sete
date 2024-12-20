@@ -1,9 +1,6 @@
 <?php
 
-if(!isset($_COOKIE['auth'])){
-    header('location: ../index.php');
-    exit();
-}elseif($_COOKIE['auth']!='true'){
+if(!isset($_COOKIE['auth']) || $_COOKIE['auth']!='true'){
     header('location: ../index.php');
     exit();
 }
