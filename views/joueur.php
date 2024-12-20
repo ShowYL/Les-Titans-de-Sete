@@ -49,7 +49,7 @@ $tableHTML = $controller->getTableHTML();
   <div class="modal-content">
     <span class="close">&times;</span>
     <h2>Ajouter un Joueur</h2>
-    <form method="POST" action="../controllers/JoueurController.php">
+    <form method="POST" action="../controllers/addJoueurController.php">
         <div class="form-group">
             <label for="licence">Licence:</label>
             <input type="text" id="licence" name="licence" required>
