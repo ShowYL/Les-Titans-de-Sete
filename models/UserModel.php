@@ -10,7 +10,7 @@ class UserModel {
     }
 
     public function createUser($nomUtilisateur, $password) {
-        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+        $hashed_password = password_hash($password, PASSWORD_BCRYPT);
         $stmt = $this->conn->prepare("INSERT INTO User (Password, Nom_Utilisateur) VALUES (?, ?)");
         $stmt->bind_param("ss", $hashed_password, $nomUtilisateur);
         $result = $stmt->execute();
