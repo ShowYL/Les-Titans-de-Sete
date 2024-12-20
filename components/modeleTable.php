@@ -29,10 +29,10 @@ class createTable{
 
         // create the "header" of the table with $index
         $this->string = '<div class="toolbar">
-                        <input type="text" placeholder="Search..." class="search-input">
+                        <input id="search-input" type="text" placeholder="Search..." class="search-input">
                         <button class="add-btn" id="addBtn">Add new</button>
                     </div>
-                    <table><tr>';
+                    <table id="table-search"><tr>';
         foreach ($index as $value){
             $this->string.='<th>'.$value.'</th>';
         }
@@ -111,7 +111,8 @@ class createTable{
      * @return string The updated string with the closing table tag appended.
      */
     public function getTable(){
-        return $this->string.='</table>';
+        return $this->string.='</table>
+                            <script type = "text/javascript" src="../scripts/table.js"></script>';
     }
 }
 
