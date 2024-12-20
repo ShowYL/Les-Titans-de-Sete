@@ -36,29 +36,9 @@ $tableHTML = $controller->getTableHTML();
             <div class='main-content'>
                 <div class="table-container">
                     <h2 class="card-title">Joueur</h2>
-                    <div class="toolbar">
-                        <button class="action-btn">Action ▾</button>
-                        <input type="text" placeholder="Search..." class="search-input">
-                        <button class="filter-btn">Filters ▾</button>
-                        <label><input type="checkbox"> Quick filter</label>
-                        <button class="add-btn" id="addBtn">Add new</button>
-                    </div>
+                    
                     <?php echo $tableHTML; ?>
                     
-                    <div class="pagination">
-                        <span>Rows per page: 
-                            <select>
-                                <option>10</option>
-                                <option>20</option>
-                                <option>50</option>
-                            </select>
-                        </span>
-                        <span>1 - 10 of ....</span>
-                        <button>⏮</button>
-                        <button>◀</button>
-                        <button>▶</button>
-                        <button>⏭</button>
-                    </div>
                 </div>
             </div>
         </div>
