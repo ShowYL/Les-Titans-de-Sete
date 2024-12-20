@@ -6,7 +6,7 @@
     <title>Les Titants de Sete</title>
     <!-- <link rel="stylesheet" href="style.css"> -->
     <link rel="stylesheet" href="../global-Style.css">
-    <link rel="stylesheet" href="../headerfooter-style.css">
+    <link rel="stylesheet" href="../style/headerfooter-style.css">
     <link rel="stylesheet" href="../body_style.css">
 </head>
 <body>
@@ -17,7 +17,7 @@
         <div class='right-content'>
             <div class='topBar'>
                 <!-- créer un composant header pour la div test plus tard!  -->
-                <div class='test'> 
+                <div class='test'>
                     <h1>Les Titants de Sete</h1>
                 </div>
             </div>
