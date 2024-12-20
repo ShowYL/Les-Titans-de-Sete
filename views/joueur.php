@@ -22,12 +22,6 @@ $tableHTML = $controller->getTableHTML();
     <link rel="stylesheet" href="../style/headerfooter-style.css">
     <link rel="stylesheet" href="../style/popups.css">
     <link rel="icon" href="../images/logo-black-version-background-full.png" type="image/x-icon">
-    <style>
-        link[rel="icon"] {
-            width: 16px;
-            height: 16px;
-        }
-    </style>
 </head>
 <body>
 <div class="container">

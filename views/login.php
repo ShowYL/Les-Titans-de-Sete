@@ -1,7 +1,7 @@
 <?php
 
 if(isset($_COOKIE['auth']) && $_COOKIE['auth']=='true'){
-    header('location: views/accueil.php');
+    header('location: accueil.php');
     exit();
 }
 ?>
@@ -13,13 +13,6 @@ if(isset($_COOKIE['auth']) && $_COOKIE['auth']=='true'){
     <title>Les Titants de Sete</title>
     <link rel="stylesheet" href="../style/login.css">
     <link rel="icon" href="../images/logo-black-version-background-full.png" type="image/x-icon">
-    <style>
-        link[rel="icon"] {
-            width: 16px;
-            height: 16px;
-        }
-    </style>
-</head>
 <body>
     <section class="card"><div>
         <h1>Login</h1>
