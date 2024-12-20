@@ -1,7 +1,7 @@
 <?php
 session_start(); // Démarrer la session
 
-require 'db_lestitansdesete.php';
+require_once __DIR__ . '/../db_lestitansdesete.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $name = $_POST['nomUtilisateur'];
@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if (password_verify($passwordSend, $user['password'])) {
             $_SESSION['loggedin'] = true;
             $_SESSION['user_id'] = $user['ID_User'];
-            header('Location: accueil.php');
+            header('Location: ../views/accueil.php');
             exit();
         } else {
             $error = 'Invalid email or password';

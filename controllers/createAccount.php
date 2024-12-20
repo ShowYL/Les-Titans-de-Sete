@@ -1,5 +1,5 @@
 <?php
-require 'db_lestitansdesete.php';
+require_once __DIR__ . '/../db_lestitansdesete.php';
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
