@@ -17,7 +17,7 @@
         <div class='right-content'>
             <div class='topBar'>
                 <!-- créer un composant header pour la div test plus tard!  -->
-                <div class='test'> 
+                <div class='test'>
                     <h1>Les Titants de Sete</h1>
                 </div>
             </div>
