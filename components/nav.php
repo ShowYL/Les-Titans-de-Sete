@@ -19,4 +19,15 @@
         document.cookie = "auth=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
         window.location.href = "../views/login.php";
     }
+
+    const currentPage = window.location.pathname.split("/").pop();
+    const navButtons = document.querySelectorAll(".nav-button");
+
+    navButtons.forEach(button => {
+        const buttonHref = button.getAttribute("href").split("/").pop();
+        if (buttonHref === currentPage) {
+            button.onclick = (e) => e.preventDefault();
+        }
+    });
+    
 </script>
