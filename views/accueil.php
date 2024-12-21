@@ -24,10 +24,7 @@ if(!isset($_COOKIE['auth']) || $_COOKIE['auth']!='true'){
         </div>
         <div class='right-content'>
             <div class='topBar'>
-                <!-- créer un composant header pour la div test plus tard!  -->
-                <div class='test'>
-                    <h1>Les Titants de Sete</h1>
-                </div>
+                <?php include '../components/header.php'; ?>
             </div>
             <div class='main-content'>
                 <h2 class="card-title ">Accueil</h2>

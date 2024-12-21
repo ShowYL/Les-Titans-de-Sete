@@ -1,7 +1,7 @@
 <?php
 
 if(isset($_COOKIE['auth']) && $_COOKIE['auth']=='true'){
-    header('location: views/accueil.php');
+    header('location: accueil.php');
     exit();
 }
 ?>

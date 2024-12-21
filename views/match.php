@@ -24,9 +24,7 @@ if(!isset($_COOKIE['auth']) || $_COOKIE['auth']!='true'){
         </div>
         <div class='right-content'>
             <div class='topBar'>
-                <div class='test'> 
-                    <h1>Les Titants de Sete</h1>
-                </div>
+                <?php include '../components/header.php'; ?>
             </div>
             <div class='main-content'>
                 <div class="table-container">
