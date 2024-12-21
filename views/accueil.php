@@ -16,6 +16,7 @@ if(!isset($_COOKIE['auth']) || $_COOKIE['auth']!='true'){
     <!-- <link rel="stylesheet" href="style.css"> -->
     <link rel="stylesheet" href="../style/global-Style.css">
     <link rel="stylesheet" href="../style/headerfooter-style.css">
+    <link rel="icon" href="../images/logo-black-version-background-full.png" type="image/x-icon">
 </head>
 <body>
     <div class="container">
