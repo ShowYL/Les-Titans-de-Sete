@@ -1,23 +1,23 @@
 /* ------------------------------------------------------ */
-                    /* Style du header  */
+/* Style du header  */
 /* ------------------------------------------------------ */
 
-.logo{
+.logo {
     width: 75%;
     height: 10%;
 }
 
-.nav-image{
-    width:20%;
-    height:100%;
-    padding-right:10%;
+.nav-image {
+    width: 20%;
+    height: 100%;
+    padding-right: 10%;
 }
 
 .navi {
-    background-color: #403D39;
+    background-color: #403d39;
     color: white;
     padding: 10px 0;
-    width:100%;
+    width: 100%;
     display: flex;
     justify-content: center;
 }
@@ -35,7 +35,7 @@ nav ul {
     padding: 0;
     display: flex;
     flex-direction: column;
-    height:50%;
+    height: 50%;
 }
 
 nav ul li {
@@ -51,10 +51,11 @@ nav ul li button {
     align-items: center;
 }
 
-.nav-button, .logout-button {
+.nav-button,
+.logout-button {
     display: flex;
     align-items: center;
-    background-color: #403D39;
+    background-color: #403d39;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -62,19 +63,22 @@ nav ul li button {
     cursor: pointer;
     border-radius: 5px;
     text-decoration: none;
-    height:50%;
+    height: 50%;
 }
 
-.logout-button{
+.logout-button {
     background-color: #555;
-    margin:1% 15px;
+    margin: 1% 15px;
 }
 
-.nav-button img, .logout-button img {
+.nav-button img,
+.logout-button img {
     margin-right: 10px;
 }
 
-button:hover, .nav-button:hover, .logout-button:hover {
+button:hover,
+.nav-button:hover,
+.logout-button:hover {
     background-color: #666;
 }
 
@@ -82,18 +86,19 @@ button:hover, .nav-button:hover, .logout-button:hover {
     background-color: #999;
     height: 150%;
     width: 4%;
-    margin-right:13px;
+    margin-right: 13px;
     display: none;
     border-radius: 20px;
-  }
+}
 
-  .nav-button.disabled-hover:hover {
-    background-color: #403D39; /* même couleur que le fond pour désactiver le hover */
-    cursor:default;
+.nav-button.disabled-hover:hover {
+    background-color: #403d39;
+    /* même couleur que le fond pour désactiver le hover */
+    cursor: default;
 }
 
 /* ------------------------------------------------------ */
-                /* Style du Footer  */
+/* Style du Footer  */
 /* ------------------------------------------------------ */
 /* 
 footer {
@@ -108,15 +113,13 @@ footer p {
     margin: 0;
 } */
 
-
 /* ------------------------------------------------------ */
-                /* Style du Header  */
+/* Style du Header  */
 /* ------------------------------------------------------ */
 
-
-.test{
+.test {
     height: 100%;
     width: 100%;
-    padding:0 , 15px ;
+    padding: 0, 15px;
     background-color: rgb(255, 255, 255);
 }
