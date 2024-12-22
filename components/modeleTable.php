@@ -30,9 +30,9 @@ class createTable{
         // create the "header" of the table with $index
         $this->string = '<div class="toolbar">
                         <input id="search-input" type="text" placeholder="Search..." class="search-input">
-                        <button id="delete-button" type="button">Supprimer</button>
-                        <button id="edit-button" type="button">Modifier</button>
-                        <button class="add-btn" id="addBtn">Ajouter</button>
+                        <button class="btn" id="delete-button" type="button">Supprimer</button>
+                        <button class="btn" id="edit-button" type="button">Modifier</button>
+                        <button class="btn" id="addBtn">Ajouter</button>
                     </div>
                     <table id="table-search"><tbody><tr>';
         foreach ($index as $value){

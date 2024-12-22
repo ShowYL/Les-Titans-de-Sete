@@ -72,6 +72,14 @@ class JoueurModel{
         return $result;
     }
 
+    public function updateJoueur($licence, $nom, $prenom, $taille, $poids, $date_naissance, $statut, $commentaire, $id){
+        $stmt = $this->conn->prepare("UPDATE Joueur SET Licence = ?, Nom = ?, Prénom = ?, Taille = ?, Poids = ?, Date_Naissance = ?, Statut = ?, Commentaire = ? WHERE ID_Joueur = ?");
+        $stmt->bind_param("sssddsssi", $licence, $nom, $prenom, $taille, $poids, $date_naissance, $statut, $commentaire, $id);
+        $result = $stmt->execute();
+        $stmt->close();
+        return $result;
+    }
+
     /**
      * Supprime un joueur de la base de données.
      *

@@ -25,6 +25,22 @@ class MatchModel{
         return $result;
     }
 
+    public function updateMatch($date, $heure, $adversaire, $lieu, $resultat, $id) {
+        $stmt = $this->conn->prepare("UPDATE `Match` SET Date_Match = ?, Heure_Match = ?, Equipe_Adverse = ?, Lieu = ?, Résultat = ? WHERE ID_Match = ?");
+        $stmt->bind_param("sssssi", $date, $heure, $adversaire, $lieu, $resultat ,$id);
+        $result = $stmt->execute();
+        $stmt->close();
+        return $result;
+    }
+
+    public function deleteMatch($id) {
+        $stmt = $this->conn->prepare("DELETE FROM `Match` WHERE ID_Match = ?");
+        $stmt->bind_param("i", $id);
+        $result = $stmt->execute();
+        $stmt->close();
+        return $result;
+    }
+
     public function closeConnection(){
         $this->conn->close();
     }

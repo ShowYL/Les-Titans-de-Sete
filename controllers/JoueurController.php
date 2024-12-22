@@ -91,6 +91,14 @@ class JoueurController{
         return $joueur;
     }
 
+    public function updateJoueur($licence, $nom, $prenom, $taille, $poids, $date_naissance, $statut, $commentaire, $id) {
+        if ($this->joueurModel->updateJoueur($licence, $nom, $prenom, $taille, $poids, $date_naissance, $statut, $commentaire, $id)){
+            header('Location: ../views/joueur.php');
+        } else {
+            return "Error: Unable to update joueur";
+        }
+    }
+
     public function supprimerJoueur($id) {
         $this->joueurModel->supprimerJoueur($id);
     }
@@ -102,6 +110,7 @@ class JoueurController{
      */
     public function getForm() {
         $form = new createForm('Ajouter un Joueur', 'addJoueurController.php');
+        $form->addHiddenInput('id');
         $form->addInput('Licence', 'text', 'licence', true);
         $form->addInput('Nom', 'text', 'nom', true);
         $form->addInput('Prénom', 'text', 'prenom', true);

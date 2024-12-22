@@ -1,7 +1,8 @@
 <?php
 require_once 'JoueurController.php';
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST['action'] == 'edit') {
+    $id = $_POST['id'];
     $licence = $_POST['licence'];
     $nom = $_POST['nom'];
     $prenom = $_POST['prenom'];
@@ -12,14 +13,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $commentaire = $_POST['commentaire'];
 
     $controller = new JoueurController();
-    $error = $controller->createJoueur($licence, $nom, $prenom, $taille, $poids, $date_naissance, $statut, $commentaire);
+    $error = $controller->updateJoueur($licence, $nom, $prenom, $taille, $poids, $date_naissance, $statut, $commentaire, $id);
     $controller->closeConnection();
+    
     if (isset($error)) {
         echo $error;
-    }else{
-        echo "Joueur créeee avec succès";
+    } else {
+        echo "Joueur modifié avec succès";
     }
 }
-
 
 ?>
