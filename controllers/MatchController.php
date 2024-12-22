@@ -47,6 +47,7 @@ class MatchController{
 
     public function getForm() {
         $form = new createForm('Ajouter un match', 'addMatchController.php');
+        $form->addHiddenInput('id');
         $form->addInput('Date', 'date', 'date');
         $form->addInput('Heure', 'time', 'heure');
         $form->addInput('Adversaire', 'text', 'adversaire');
@@ -55,6 +56,22 @@ class MatchController{
         $form->addButton('Valider');
         $this->formHTML = $form->getForm();
         return $this->formHTML;
+    }
+
+    public function updateMatch($date, $heure, $adversaire, $lieu, $resultat, $id) {
+        if ($this->matchModel->updateMatch($date, $heure, $adversaire, $lieu, $resultat, $id)) {
+            header('Location: ../views/match.php');
+        } else {
+            return "Error: Unable to update match";
+        }
+    }
+
+    public function deleteMatch($id) {
+        if ($this->matchModel->deleteMatch($id)) {
+            header('Location: ../views/match.php');
+        } else {
+            return "Error: Unable to delete match";
+        }
     }
 
     public function closeConnection() {

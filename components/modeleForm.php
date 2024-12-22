@@ -15,7 +15,8 @@ class createForm{
                             <div class="modal-content">
                                     <span class="close">&times;</span>
                                     <h2>'.$title.'</h2>'
-                                    .'<form method="POST" action="../controllers/'.$controller.'">';
+                                    .'<form id="dynamicForm" method="POST" action="../controllers/'.$controller.'">'
+                                    .'<input type="hidden" id="formAction" name="action" value="add">';// to kwon if we are adding or editing
     }
 
     /**
@@ -72,6 +73,16 @@ class createForm{
      */
     public function addButton(string $text){
         $this->string .= '<button type="submit">'.$text.'</button>';
+    }
+
+    /**
+     * Adds a hidden input field to the form.
+     *
+     * @param string $name The name attribute of the hidden input.
+     * @param string $value The value attribute of the hidden input. Default is an empty string.
+     */
+    public function addHiddenInput(string $name, string $value = ''){
+        $this->string .= '<input type="hidden" id="'.$name.'" name="'.$name.'" value="'.$value.'">';
     }
 
     /**
