@@ -9,15 +9,7 @@ if(!isset($_COOKIE['auth']) || $_COOKIE['auth']!='true'){
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Les Titants de Sete</title>
-    <!-- <link rel="stylesheet" href="style.css"> -->
-    <link rel="stylesheet" href="../style/global-Style.css">
-    <link rel="stylesheet" href="../style/headerfooter-style.css">
-    <link rel="icon" href="../images/logo-black-version-background-full.png" type="image/x-icon">
-</head>
+<?php include '../components/headCode.php'; ?>
 <body>
     <div class="container">
         <div class='leftBar'>
