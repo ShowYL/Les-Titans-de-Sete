@@ -13,6 +13,7 @@
     </nav>
 </div>
 <script>
+    // fonctionnement du bouton logout
     const logoutButton = document.getElementById("logout-button");
 
     logoutButton.onclick = () => {
@@ -20,6 +21,7 @@
         window.location.href = "../views/login.php";
     }
 
+    // disable le bouton de la page sur laquelle on est
     const currentPage = window.location.pathname.split("/").pop();
     const navButtons = document.querySelectorAll(".nav-button");
 
