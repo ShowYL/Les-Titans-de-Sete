@@ -64,7 +64,7 @@ class JoueurModel{
      * @return array|null The player's information as an associative array, or null if not found.
      */
     public function getJoueur($id){
-        $stmt = $this->conn->prepare("SELECT ID_Joueur, Licence, Nom, Prénom, Taille, Poids, Date_Naissance, Statut, Commentaire FROM Joueur WHERE ID_Joueur = ?");
+        $stmt = $this->conn->prepare("SELECT * FROM Joueur WHERE ID_Joueur = ?");
         $stmt->bind_param("i", $id);
         $stmt->execute();
         $result = $stmt->get_result()->fetch_assoc(); 
@@ -72,6 +72,20 @@ class JoueurModel{
         return $result;
     }
 
+    /**
+     * Updates the details of a joueur (player) in the database.
+     *
+     * @param string $licence The licence number of the joueur.
+     * @param string $nom The last name of the joueur.
+     * @param string $prenom The first name of the joueur.
+     * @param float $taille The height of the joueur in meters.
+     * @param float $poids The weight of the joueur in kilograms.
+     * @param string $date_naissance The birth date of the joueur in YYYY-MM-DD format.
+     * @param string $statut The status of the joueur.
+     * @param string $commentaire Additional comments about the joueur.
+     * @param int $id The unique identifier of the joueur.
+     * @return bool Returns true on success, false on failure.
+     */
     public function updateJoueur($licence, $nom, $prenom, $taille, $poids, $date_naissance, $statut, $commentaire, $id){
         $stmt = $this->conn->prepare("UPDATE Joueur SET Licence = ?, Nom = ?, Prénom = ?, Taille = ?, Poids = ?, Date_Naissance = ?, Statut = ?, Commentaire = ? WHERE ID_Joueur = ?");
         $stmt->bind_param("sssddsssi", $licence, $nom, $prenom, $taille, $poids, $date_naissance, $statut, $commentaire, $id);

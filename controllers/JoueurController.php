@@ -60,6 +60,11 @@ class JoueurController{
         return $joueurs;
     }
 
+    /**
+     * Generates and returns the HTML table representation of the data.
+     *
+     * @return string The HTML table as a string.
+     */
     public function getTableHTML() {
         $joueurs = $this->getAllJoueurs();
         $data = [];
@@ -91,21 +96,18 @@ class JoueurController{
         return $joueur;
     }
 
-    public function updateJoueur($licence, $nom, $prenom, $taille, $poids, $date_naissance, $statut, $commentaire, $id) {
-        if ($this->joueurModel->updateJoueur($licence, $nom, $prenom, $taille, $poids, $date_naissance, $statut, $commentaire, $id)){
-            header('Location: ../views/joueur.php');
-        } else {
-            return "Error: Unable to update joueur";
-        }
-    }
-
-    public function supprimerJoueur($id) {
-        $this->joueurModel->supprimerJoueur($id);
-    }
-
     /**
-     * Retrieves the form for the JoueurController.
+     * Updates the details of a joueur (player) in the database.
      *
+     * @param string $licence The licence number of the joueur.
+     * @param string $nom The last name of the joueur.
+     * @param string $prenom The first name of the joueur.
+     * @param float $taille The height of the joueur in meters.
+     * @param float $poids The weight of the joueur in kilograms.
+     * @param string $date_naissance The birth date of the joueur in YYYY-MM-DD format.
+     * @param string $statut The status of the joueur (e.g., active, injured).
+     * @param string $commentaire Additional comments about the joueur.
+     * @param int $id The unique identifier of the joueur in the database.
      * @return void
      */
     public function getForm() {
@@ -119,7 +121,7 @@ class JoueurController{
         $form->addInput('Date de naissance', 'date', 'date_naissance', true);
         $form->addSelect('Statut', 'statut', ['Actif', 'Blessé', 'Absent', 'Suspendu']);
         $form->addTextarea('Commentaire', 'commentaire');
-        $form->addButton('Ajouter');
+        $form->addButton('Valider');
         $this->formHTML = $form->getForm();
         return $form->getForm();
     }

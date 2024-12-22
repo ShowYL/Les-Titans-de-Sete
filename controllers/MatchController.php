@@ -27,6 +27,11 @@ class MatchController{
         return $matchs;
     }
 
+    public function getMatch($id) {
+        $match = $this->matchModel->getMatch($id);
+        return $match;
+    }
+
     public function getTableHTML() {
         $matchs = $this->getAllMatchs();
         $data = [];
