@@ -2,6 +2,8 @@ const inputSearch = document.getElementById("search-input");
 const table = document.getElementById("table-search");
 const tableBody = table.querySelector("tbody");
 const headers = table.querySelectorAll("th");
+const deleteBtn = document.getElementById("delete-button");
+const editBtn = document.getElementById("edit-button");
 
 inputSearch.addEventListener('input', (event) => {
     let inputValue = event.target.value.toLowerCase();
@@ -20,7 +22,7 @@ inputSearch.addEventListener('input', (event) => {
     });
 });
 
-// Ajouter un gestionnaire d'événements pour chaque en-tête de colonne
+// trier par la colonne clickée
 headers.forEach((header, index) => {
     header.addEventListener('click', () => {
         let rows = Array.from(tableBody.rows).slice(1)  ; // exclure la première ligne (header de la table)
@@ -52,13 +54,32 @@ headers.forEach((header, index) => {
 });
 
 
-// Selectionner une ligne
-function selectRow(row) {
-    row.classList.toggle('selected');
-}
+// Sélectionner une ligne qui n'est pas le header (slice(1))
+Array.from(tableBody.rows).slice(1).forEach(row => {
+    row.addEventListener('click', (event) => {
+        
+        // si touche control préssée alors garder les précédentes sélections
+        if (event.ctrlKey) {
+            row.classList.toggle('selected');
+
+        } else {
+            // déselectionner les précédentes lignes
+            let previouslySelectedRows = tableBody.querySelectorAll('tr.selected');
+            previouslySelectedRows.forEach(selectedRow => {
+                if (selectedRow !== row) {
+                    selectedRow.classList.remove('selected');
+                }
+            });
+
+            // sélectionner la précédente ligne
+            row.classList.toggle('selected');
+
+        }
+    });
+});
 
 // supprimer les joueurs sélectionnés
-function deleteSelected() {
+deleteBtn.onclick = () => {
     var selectedRows = document.querySelectorAll('#table-search tr.selected');
     if (selectedRows.length > 0) {
         if (confirm('Êtes-vous sûr de vouloir supprimer les joueurs sélectionnés ?')) {
@@ -80,7 +101,7 @@ function deleteSelected() {
 }
 
 // Modifier les joueurs sélectionnés
-function editSelected() {
+editBtn.onclick = () => {
     var selectedRows = document.querySelectorAll('#table-search tr.selected');
     if (selectedRows.length === 1) {
         var row = selectedRows[0];
