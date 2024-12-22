@@ -5,6 +5,8 @@ var form = document.getElementById("dynamicForm");
 var formActionInput = document.getElementById("formAction");
 var idInput = document.getElementById("id");
 var originalFormAction = form.getAttribute('action');
+var editBtn = document.getElementById("edit-button");
+
 
 btn.onclick = function() {
   form.setAttribute('action', originalFormAction); // Reset to original action
@@ -42,7 +44,7 @@ window.onclick = function(event) {
   }
 }
 
-function editSelected() {
+editBtn.onclick = () => {
     var selectedRows = document.querySelectorAll('#table-search tr.selected');
     if (selectedRows.length === 1) {
         var row = selectedRows[0];

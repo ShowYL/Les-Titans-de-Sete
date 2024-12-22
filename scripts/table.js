@@ -3,7 +3,7 @@ const table = document.getElementById("table-search");
 const tableBody = table.querySelector("tbody");
 const headers = table.querySelectorAll("th");
 const deleteBtn = document.getElementById("delete-button");
-const editBtn = document.getElementById("edit-button");
+
 
 
 inputSearch.addEventListener('input', (event) => {
@@ -105,29 +105,5 @@ deleteBtn.onclick = () => {
         }
     } else {
         alert('Veuillez sélectionner au moins un joueur à supprimer.');
-    }
-}
-
-// Modifier les joueurs sélectionnés
-editBtn.onclick = () => {
-    var selectedRows = document.querySelectorAll('#table-search tr.selected');
-    if (selectedRows.length === 1) {
-        var row = selectedRows[0];
-        var cells = row.cells;
-
-        // Remplir les champs du formulaire avec les données de la ligne sélectionnée
-        document.getElementById('licence').value = cells[1].textContent;
-        document.getElementById('nom').value = cells[2].textContent;
-        document.getElementById('prenom').value = cells[3].textContent;
-        document.getElementById('taille').value = cells[4].textContent;
-        document.getElementById('poids').value = cells[5].textContent;
-        document.getElementById('date_naissance').value = cells[6].textContent;
-        document.getElementById('statut').value = cells[7].textContent;
-
-        // Ouvrir la modal
-        var modal = document.getElementById("myModal");
-        modal.style.display = "block";
-    } else {
-        alert('Veuillez sélectionner une seule ligne à modifier.');
     }
 }
