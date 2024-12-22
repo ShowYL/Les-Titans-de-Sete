@@ -1,28 +1,22 @@
 <?php
+require_once '../controllers/JoueurController.php';
+
 
 if(!isset($_COOKIE['auth']) || $_COOKIE['auth']!='true'){
     header('location: login.php');
     exit();
 }
 
-require_once '../controllers/JoueurController.php';
-
 $controller = new JoueurController();
 $tableHTML = $controller->getTableHTML();
+$formHTML = $controller->getForm();
 
+
+$controller->closeConnection();
 ?>
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Les Titants de Sete</title>
-    <link rel="stylesheet" href="../style/table.css">
-    <link rel="stylesheet" href="../style/global-Style.css">
-    <link rel="stylesheet" href="../style/headerfooter-style.css">
-    <link rel="stylesheet" href="../style/popups.css">
-    <link rel="icon" href="../images/logo-black-version-background-full.png" type="image/x-icon">
-</head>
+<?php include '../components/headCode.php'; ?>
 <body>
 <div class="container">
         <div class='leftBar'>
@@ -30,90 +24,17 @@ $tableHTML = $controller->getTableHTML();
         </div>
         <div class='right-content'>
             <div class='topBar'>
-                <div class='test'> 
-                    <h1>Les Titants de Sete</h1>
-                </div>
+                <?php include '../components/header.php'; ?>
             </div>
             <div class='main-content'>
                 <div class="table-container">
                     <h2 class="card-title">Joueur</h2>
-                    
                     <?php echo $tableHTML; ?>
-                    
                 </div>
             </div>
         </div>
 </div>
 
-<!-- The Modal -->
-<div id="myModal" class="modal">
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <h2>Ajouter un Joueur</h2>
-    <form method="POST" action="../controllers/addJoueurController.php">
-        <div class="form-group">
-            <label for="licence">Licence:</label>
-            <input type="text" id="licence" name="licence" required>
-        </div>
-        <div class="form-group">
-            <label for="nom">Nom:</label>
-            <input type="text" id="nom" name="nom" required>
-        </div>
-        <div class="form-group">
-            <label for="prenom">Prénom:</label>
-            <input type="text" id="prenom" name="prenom" required>
-        </div>
-        <div class="form-group">
-            <label for="taille">Taille:</label>
-            <input type="number" id="taille" name="taille" required>
-        </div>
-        <div class="form-group">
-            <label for="poids">Poids:</label>
-            <input type="number" id="poids" name="poids" required>
-        </div>
-        <div class="form-group">
-            <label for="date_naissance">Date de naissance:</label>
-            <input type="date" id="date_naissance" name="date_naissance" required>
-        </div>
-        <div class="form-group">
-            <label for="statut">Statut:</label>
-            <input type="text" id="statut" name="statut" required>
-        </div>
-        <div class="form-group">
-            <label for="commentaire">Commentaire:</label>
-            <textarea id="commentaire" name="commentaire"></textarea>
-        </div>
-        <button type="submit">Ajouter</button>
-    </form>
-  </div>
-</div>
-
-<script>
-    // Get the modal
-    var modal = document.getElementById("myModal");
-
-    // Get the button that opens the modal
-    var btn = document.getElementById("addBtn");
-
-    // Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("close")[0];
-
-    // When the user clicks the button, open the modal 
-    btn.onclick = function() {
-      modal.style.display = "block";
-    }
-
-    // When the user clicks on <span> (x), close the modal
-    span.onclick = function() {
-      modal.style.display = "none";
-    }
-
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function(event) {
-      if (event.target == modal) {
-        modal.style.display = "none";
-      }
-    }
-</script>
+<?php echo $formHTML; ?>
 </body>
 </html>

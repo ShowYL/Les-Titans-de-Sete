@@ -1,15 +1,9 @@
 <?php
-require_once '../controllers/MatchController.php';
-
 if(!isset($_COOKIE['auth']) || $_COOKIE['auth']!='true'){
     header('location: login.php');
     exit();
 }
-$controller = new MatchController();
-$tableHTML = $controller->getTableHTML();
-$formHTML = $controller->getForm();
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <?php include '../components/headCode.php'; ?>
@@ -24,12 +18,10 @@ $formHTML = $controller->getForm();
             </div>
             <div class='main-content'>
                 <div class="table-container">
-                <h2 class="card-title">Match</h2>
-                <?php echo $tableHTML; ?>
+                <h2 class="card-title">Selection</h2>
                 </div>
             </div>
         </div>
     </div>
-    <?php echo $formHTML; ?>
 </body>
 </html>

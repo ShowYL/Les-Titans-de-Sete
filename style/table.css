@@ -53,3 +53,8 @@ table a:hover {
   border: 1px solid #ccc;
   border-radius: 4px;
 }
+
+.selected {
+  /* background-color: #e02323;  */
+  color: #0168f8; 
+}
