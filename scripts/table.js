@@ -24,7 +24,7 @@ inputSearch.addEventListener('input', (event) => {
 // Ajouter un gestionnaire d'événements pour chaque en-tête de colonne
 headers.forEach((header, index) => {
     header.addEventListener('click', () => {
-        let rows = Array.from(tableBody.rows).slice(1)  ; // Exclude the first row (headers)
+        let rows = Array.from(tableBody.rows).slice(1)  ; // exclure la première ligne (header de la table)
         let sortedRows = rows.sort((a, b) => {
             let cellA = a.cells[index].textContent.toLowerCase();
             let cellB = b.cells[index].textContent.toLowerCase();
