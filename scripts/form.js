@@ -72,11 +72,10 @@ editBtn.onclick = () => {
                 })
                 .catch(error => console.error('Error fetching match data:', error));
         } else if (type === 'joueur') { // for player data
-            fetch(`../controllers/getPlayerData.php?id=${id}`)
-                .then(response => response.json())
+                fetch(`../controllers/getJoueurData.php?id=${id}`)
+                .then(response => response.json()) // Get the raw response text
                 .then(data => {
                     console.log(data); // Log the response data
-                    // Set the input fields to the data fetched from the server
                     if (data && !data.error) {
                         document.getElementById('id').value = data.ID_Joueur;
                         document.getElementById('licence').value = data.Licence;
@@ -89,12 +88,12 @@ editBtn.onclick = () => {
                         document.getElementById('commentaire').value = data.Commentaire;
                         form.setAttribute('action', "../controllers/editJoueurController.php"); // Set the form action to editJoueurController.php
                         formActionInput.value = "edit"; // Set the form action to edit
-                        modal.style.display = "block"; // Display the modal
+                        modal.style.display = "block";
                     } else {
-                        alert('Error: ' + (data.error || 'Unknown error')); // Display an error message
+                        alert('Error: ' + (data.error || 'Unknown error'));
                     }
                 })
-                .catch(error => console.error('Error fetching player data:', error)); // 
+                .catch(error => console.error('Error fetching player data:', error));
         }
     } else {
         alert('Veuillez sélectionner une seule ligne à modifier.');
