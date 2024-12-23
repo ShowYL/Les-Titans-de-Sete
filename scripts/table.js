@@ -80,30 +80,46 @@ Array.from(tableBody.rows).slice(1).forEach(row => {
 });
 
 // supprimer les joueurs sélectionnés
-deleteBtn.onclick = () => {
-    var selectedRows = document.querySelectorAll('#table-search tr.selected');
-    if (selectedRows.length > 0) {
-        if (confirm('Êtes-vous sûr de vouloir supprimer les joueurs sélectionnés ?')) {
-            // Recupére les id des joueurs sélectionnés
-            var form = document.getElementById('joueurForm'); // Récupère le formulaire
-            var oldInputs = form.querySelectorAll('input[name="ids[]"]'); // Supprime les anciens champs cachés pour éviter les doublons sinon big problem!!
-            oldInputs.forEach(function(input) {
-                form.removeChild(input);
-            });
+deleteBtn.addEventListener('click', () => {
+    let selectedRow = tableBody.querySelector('tr.selected');
+    if (selectedRow) {
+        let id = selectedRow.cells[0].textContent; 
+        let type = selectedRow.getAttribute('data-type'); 
+        let confirmMsg = `Voulez-vous vraiment supprimer ce ${type === 'match' ? 'match' : 'joueur'} ?`;
+        if (confirm(confirmMsg)) {
+            console.log(`type :${type},  ID: ${id}`); 
 
-            // Crée un champ caché pour chaque ID sélectionné
-            selectedRows.forEach(function(row) {
-                var input = document.createElement('input'); // Crée un élément input
-                input.type = 'hidden';
-                input.name = 'ids[]'; // Utilise un tableau pour les noms des champs
-                input.value = row.getAttribute('data-id');
-                form.appendChild(input);
-            });
+            deleteBtn.disabled = true;
+            deleteBtn.textContent = 'Suppression...';// l'attent de la suppression car elle peut prendre du temps
 
-            // Soumet le formulaire
-            form.submit();
+            // envoyer une requête de suppression au serveur avec la methode GET
+            fetch(`../controllers/supp${type === 'match' ? 'Match' : 'Joueur'}Data.php?id=${id}`, {
+                method: 'GET'
+            })
+                .then(response => response.text())// récupérer la réponse du serveur
+                .then(text => {
+                    console.log('Reponse du servreu:', text);
+                    try {
+                        const data = JSON.parse(text); // convertir la réponse en objet JSON
+                        if (data && !data.error) { // si la suppression est effectuée avec succès
+                            alert(data.message);
+                            selectedRow.remove();
+                        } else {
+                            alert('Erreur: ' + (data.error || 'Erreur inconnue')); 
+                        }
+                    } catch (error) { // si la réponse n'est pas un objet JSON
+                        console.error('Erreur lors de la suppression:', error);
+                        alert('Erreur lors de la suppression : réponse invalide du serveur.');
+                    }
+                })
+                .catch(error => console.error('Erreur lors de la suppression:', error)) // si la requête échoue
+                .finally(() => {
+                    deleteBtn.disabled = false;
+                    deleteBtn.textContent = 'Supprimer';// rétablir le texte du bouton
+                });
         }
     } else {
-        alert('Veuillez sélectionner au moins un joueur à supprimer.');
+        alert('Veuillez sélectionner une ligne à supprimer.');
     }
-}
+});
+

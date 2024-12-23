@@ -100,7 +100,7 @@ class JoueurModel{
      * @param int $id L'identifiant du joueur à supprimer.
      * @return bool Retourne true si la suppression a réussi, false sinon.
      */
-    public function supprimerJoueur($id){
+    public function deleteJoueur($id){
         $stmt = $this->conn->prepare("DELETE FROM Joueur WHERE ID_Joueur = ?");
         $stmt->bind_param("i", $id);
         $stmt->execute();

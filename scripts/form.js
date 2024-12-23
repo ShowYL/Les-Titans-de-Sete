@@ -1,27 +1,27 @@
-var modal = document.getElementById("myModal");
-var btn = document.getElementById("addBtn");
-var span = document.getElementsByClassName("close")[0];
-var form = document.getElementById("dynamicForm");
-var formActionInput = document.getElementById("formAction");
-var idInput = document.getElementById("id");
-var originalFormAction = form.getAttribute('action');
-var editBtn = document.getElementById("edit-button");
+const modal = document.getElementById("myModal");
+const btn = document.getElementById("addBtn");
+const span = document.getElementsByClassName("close")[0];
+const form = document.getElementById("dynamicForm");
+const formActionInput = document.getElementById("formAction");
+const idInput = document.getElementById("id");
+const originalFormAction = form.getAttribute('action');
+const editBtn = document.getElementById("edit-button");
 
 btn.onclick = function() {
-  form.setAttribute('action', originalFormAction); // Reset to original action
+  form.setAttribute('action', originalFormAction); // remettre à l'action originale
   formActionInput.value = "add";
-  idInput.value = ''; // Clear the ID field when adding a new match or player
+  idInput.value = ''; // supprimer l'id de la ligne selectionnée
   modal.style.display = "block";
 }
 
 span.onclick = function() {
   modal.style.display = "none";
-  form.setAttribute('action', originalFormAction); // Reset to original action
+  form.setAttribute('action', originalFormAction); // remettre à l'action originale
   formActionInput.value = "add"; // Reset to add
 
-  // Clear all input fields in the form
-  var inputs = form.querySelectorAll('input, select, textarea');
-  for (var i = 0; i < inputs.length; i++) {
+  // supprimer les valeurs des champs du formulaire
+  const inputs = form.querySelectorAll('input, select, textarea');
+  for (let i = 0; i < inputs.length; i++) {
     if (inputs[i].type === 'hidden') continue; // Skip hidden inputs
     inputs[i].value = '';
   }
@@ -30,12 +30,12 @@ span.onclick = function() {
 window.onclick = function(event) {
   if (event.target == modal) {
     modal.style.display = "none";
-    form.setAttribute('action', originalFormAction); // Reset to original action
+    form.setAttribute('action', originalFormAction); // remettre à l'action originale
     formActionInput.value = "add"; // Reset to add
 
-    // Clear all input fields in the form
-    var inputs = form.querySelectorAll('input, select, textarea');
-    for (var i = 0; i < inputs.length; i++) {
+    // supprimer les valeurs des champs du formulaire
+    const inputs = form.querySelectorAll('input, select, textarea');
+    for (let i = 0; i < inputs.length; i++) {
       if (inputs[i].type === 'hidden') continue; // Skip hidden inputs
       inputs[i].value = '';
     }
@@ -43,19 +43,19 @@ window.onclick = function(event) {
 }
 
 editBtn.onclick = () => {
-    var selectedRows = document.querySelectorAll('#table-search tr.selected');
+    const selectedRows = document.querySelectorAll('#table-search tr.selected');
     if (selectedRows.length === 1) {
-        var row = selectedRows[0];
-        var cells = row.cells;
-        var id = cells[0].textContent;// Get the ID of the selected row
-        var type = row.getAttribute('data-type'); // Get the type of the selected row
+        const row = selectedRows[0];
+        const cells = row.cells;
+        const id = cells[0].textContent; // recupérer l'id de la ligne selectionnée
+        const type = row.getAttribute('data-type'); // recupérer le type de la ligne selectionnée (match ou joueur)
 
-        if (type === 'match') { // for match data
+        if (type === 'match') { // pour les données du match
             fetch(`../controllers/getMatchData.php?id=${id}`)
-                .then(response => response.json())
+                .then(response => response.json()) // récupérer la réponse du serveur
                 .then(data => {
-                    console.log(data); // Log the response data
-                    // Set the input fields to the data fetched from the server
+                    console.log(data); 
+                    // Mettre les données du match dans les champs du formulaire
                     if (data && !data.error) {
                         document.getElementById('id').value = data.ID_Match;
                         document.getElementById('date').value = data.Date_Match;
@@ -63,19 +63,20 @@ editBtn.onclick = () => {
                         document.getElementById('adversaire').value = data.Equipe_Adverse;
                         document.getElementById('lieu').value = data.Lieu;
                         document.getElementById('resultat').value = data.Résultat;
-                        form.setAttribute('action', "../controllers/editMatchController.php"); // Set the form action to editMatchController.php
-                        formActionInput.value = "edit"; // Set the form action to edit
+                        form.setAttribute('action', "../controllers/editMatchController.php"); // mettre l'action du formulaire à editMatchController.php
+                        formActionInput.value = "edit"; // mettre l'action du formulaire à edit
                         modal.style.display = "block"; // Display the modal
                     } else {
                         alert('Error: ' + (data.error || 'Unknown error'));
                     }
                 })
                 .catch(error => console.error('Error fetching match data:', error));
-        } else if (type === 'joueur') { // for player data
-                fetch(`../controllers/getJoueurData.php?id=${id}`)
-                .then(response => response.json()) // Get the raw response text
+        } else if (type === 'joueur') { // pour les données du joueur
+            fetch(`../controllers/getJoueurData.php?id=${id}`)
+                .then(response => response.json()) // récupérer la réponse du serveur
                 .then(data => {
-                    console.log(data); // Log the response data
+                    console.log(data);
+                    // Mettre les données du joueur dans les champs du formulaire
                     if (data && !data.error) {
                         document.getElementById('id').value = data.ID_Joueur;
                         document.getElementById('licence').value = data.Licence;
@@ -86,8 +87,8 @@ editBtn.onclick = () => {
                         document.getElementById('date_naissance').value = data.Date_Naissance;
                         document.getElementById('statut').value = data.Statut;
                         document.getElementById('commentaire').value = data.Commentaire;
-                        form.setAttribute('action', "../controllers/editJoueurController.php"); // Set the form action to editJoueurController.php
-                        formActionInput.value = "edit"; // Set the form action to edit
+                        form.setAttribute('action', "../controllers/editJoueurController.php"); // mettre l'action du formulaire à editJoueurController.php
+                        formActionInput.value = "edit";
                         modal.style.display = "block";
                     } else {
                         alert('Error: ' + (data.error || 'Unknown error'));

@@ -48,6 +48,20 @@ class JoueurController{
         }
     }
 
+    /**
+     * Updates the details of a joueur (player) in the database.
+     *
+     * @param string $licence The licence number of the joueur.
+     * @param string $nom The last name of the joueur.
+     * @param string $prenom The first name of the joueur.
+     * @param float $taille The height of the joueur in meters.
+     * @param float $poids The weight of the joueur in kilograms.
+     * @param string $date_naissance The birth date of the joueur in YYYY-MM-DD format.
+     * @param string $statut The status of the joueur (e.g., active, injured).
+     * @param string $commentaire Additional comments about the joueur.
+     * @param int $id The unique identifier of the joueur in the database.
+     * @return void
+     */
     public function updateJoueur($licence, $nom, $prenom, $taille, $poids, $date_naissance, $statut, $commentaire, $id) {
         if ($this->joueurModel->updateJoueur($licence, $nom, $prenom, $taille, $poids, $date_naissance, $statut, $commentaire, $id)) {
             header('Location: ../views/joueur.php');
@@ -55,6 +69,21 @@ class JoueurController{
             return "Error: Unable to update joueur";
         }
     }
+
+    /**
+     * Deletes a joueur (player) from the database.
+     *
+     * @param int $id The ID of the joueur to be deleted.
+     * @return void
+     */
+    public function deleteJoueur($id) {
+        if ($this->joueurModel->deleteJoueur($id)) {
+            header('Location: ../views/joueur.php');
+        } else {
+            return "Error: Unable to delete joueur";
+        }
+    }
+    
 
     /**
      * Retrieve all players.
@@ -105,18 +134,9 @@ class JoueurController{
     }
 
     /**
-     * Updates the details of a joueur (player) in the database.
+     * Generates the HTML form for adding a new player.
      *
-     * @param string $licence The licence number of the joueur.
-     * @param string $nom The last name of the joueur.
-     * @param string $prenom The first name of the joueur.
-     * @param float $taille The height of the joueur in meters.
-     * @param float $poids The weight of the joueur in kilograms.
-     * @param string $date_naissance The birth date of the joueur in YYYY-MM-DD format.
-     * @param string $statut The status of the joueur (e.g., active, injured).
-     * @param string $commentaire Additional comments about the joueur.
-     * @param int $id The unique identifier of the joueur in the database.
-     * @return void
+     * @return string The HTML form as a string.
      */
     public function getForm() {
         $form = new createForm('Ajouter un Joueur', 'addJoueurController.php');

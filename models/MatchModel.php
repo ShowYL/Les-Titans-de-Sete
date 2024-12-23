@@ -47,7 +47,6 @@ class MatchModel{
         $stmt->bind_param("i", $id);
         $result = $stmt->execute();
         $stmt->close();
-        return $result;
     }
 
     public function closeConnection(){
