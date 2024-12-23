@@ -36,7 +36,7 @@ window.onclick = function(event) {
     // Clear all input fields in the form
     var inputs = form.querySelectorAll('input, select, textarea');
     for (var i = 0; i < inputs.length; i++) {
-      if (inputs[i].type === 'hidden') continue; // Skip hidden inputs (id field)
+      if (inputs[i].type === 'hidden') continue; // Skip hidden inputs
       inputs[i].value = '';
     }
   }
@@ -48,8 +48,9 @@ editBtn.onclick = () => {
         var row = selectedRows[0];
         var cells = row.cells;
         var id = cells[0].textContent;// Get the ID of the selected row
+        var type = row.getAttribute('data-type'); // Get the type of the selected row
 
-        if (cells.length == 6) { // for match data
+        if (type === 'match') { // for match data
             fetch(`../controllers/getMatchData.php?id=${id}`)
                 .then(response => response.json())
                 .then(data => {
@@ -70,8 +71,8 @@ editBtn.onclick = () => {
                     }
                 })
                 .catch(error => console.error('Error fetching match data:', error));
-        } else if (cells.length == 8) { // for player data
-            fetch(`../controllers/getJoueurData.php?id=${id}`)
+        } else if (type === 'joueur') { // for player data
+            fetch(`../controllers/getPlayerData.php?id=${id}`)
                 .then(response => response.json())
                 .then(data => {
                     console.log(data); // Log the response data
@@ -95,8 +96,6 @@ editBtn.onclick = () => {
                 })
                 .catch(error => console.error('Error fetching player data:', error)); // 
         }
-
-
     } else {
         alert('Veuillez sélectionner une seule ligne à modifier.');
     }

@@ -80,7 +80,7 @@ class JoueurController{
                 $joueur['Statut']
             ];
         }
-        $this->table = new createTable($data, $this->index);
+        $this->table = new createTable($data, $this->index, 'joueur');
         $this->tableHTML = $this->table->getTable();
         return $this->tableHTML;
     }

@@ -45,7 +45,7 @@ class MatchController{
                 $match['Résultat']
             ];
         }
-        $this->table = new createTable($data, $this->index);
+        $this->table = new createTable($data, $this->index, 'match');
         $this->tableHTML = $this->table->getTable();
         return $this->tableHTML;
     }

@@ -14,10 +14,11 @@ class createTable{
      *
      * @param array $data The data to be used to fill the table. Each element in the array represents a row in the table.
      * @param array $index The index representing the structure of the table. Each element in the array represents a column header.
+     * @param string $data_type The type of data in the table (e.g., 'joueur', 'match').
      *
      * @throws Exception If the number of columns in the provided data does not match the number of columns in the provided index.
      */
-    public function __construct(array $data, array $index){
+    public function __construct(array $data, array $index, string $data_type){
         // Checks if the provided data matches the structure of the table otherwise throw an exception
         foreach ($data as $ligne){
             if(count($ligne)!=count($index)){
@@ -42,7 +43,7 @@ class createTable{
 
         // fill the table with the data
         foreach ($data as $id => $ligne){
-            $this->string.='<tr data-id="'.$id.'">';
+            $this->string.='<tr data-id="'.$id.'" data-type="'.$data_type.'">';
             foreach ($ligne as $cell){
                 $this->string.='<td>'.$cell.'</td>';
             }
