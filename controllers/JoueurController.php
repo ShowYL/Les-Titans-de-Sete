@@ -48,6 +48,14 @@ class JoueurController{
         }
     }
 
+    public function updateJoueur($licence, $nom, $prenom, $taille, $poids, $date_naissance, $statut, $commentaire, $id) {
+        if ($this->joueurModel->updateJoueur($licence, $nom, $prenom, $taille, $poids, $date_naissance, $statut, $commentaire, $id)) {
+            header('Location: ../views/joueur.php');
+        } else {
+            return "Error: Unable to update joueur";
+        }
+    }
+
     /**
      * Retrieve all players.
      *
