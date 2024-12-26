@@ -1,6 +1,4 @@
 <?php
-
-
 /**
  * Class ConnectionBD
  *
@@ -23,9 +21,12 @@ class ConnectionBD {
      * provided credentials. If the connection fails, it throws an error.
      */
     public function __construct() {
-        $this->conn = new mysqli($this->servername, $this->username, $this->password, $this->dbname);
-        if ($this->conn->connect_error) {
-            die("La connexion a échoué: " . $this->conn->connect_error);
+        try {
+            $dsn = "mysql:host=$this->servername;dbname=$this->dbname;charset=utf8";
+            $this->conn = new PDO($dsn, $this->username, $this->password);
+            $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        } catch (PDOException $e) {
+            die("La connexion a échoué: " . $e->getMessage());
         }
     }
 
@@ -35,7 +36,7 @@ class ConnectionBD {
      * This method returns the connection to the database to allow other classes
      * to execute queries on the database.
      *
-     * @return mysqli The connection to the database.
+     * @return PDO The connection to the database.
      */
     public function getConnection() {
         return $this->conn;
@@ -51,7 +52,6 @@ class ConnectionBD {
      * @return void
      */
     public function closeConnection() {
-        $this->conn->close();
+        $this->conn = null;
     }
 }
-?>

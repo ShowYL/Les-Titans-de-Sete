@@ -12,7 +12,6 @@ require_once 'db_lestitansdesete.php';
 class JoueurModel{
     private $conn;
 
-    
     /**
      * JoueurModel constructor.
      * Initializes a new instance of the JoueurModel class.
@@ -33,16 +32,21 @@ class JoueurModel{
      * @param string $date_naissance The birth date of the joueur in YYYY-MM-DD format.
      * @param string $statut The status of the joueur (e.g., active, inactive).
      * @param string $commentaire Additional comments about the joueur.
-     * @return void
+     * @return bool Returns true on success, false on failure.
      */
     public function createJoueur($licence, $nom, $prenom, $taille, $poids, $date_naissance, $statut, $commentaire) {
-        $stmt = $this->conn->prepare("INSERT INTO Joueur (Licence, Nom, Prénom, Taille, Poids, Date_Naissance, Statut, Commentaire) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("sssddsss", $licence, $nom, $prenom, $taille, $poids, $date_naissance, $statut, $commentaire);
+        $stmt = $this->conn->prepare("INSERT INTO Joueur (Licence, Nom, Prénom, Taille, Poids, Date_Naissance, Statut, Commentaire) VALUES (:licence, :nom, :prenom, :taille, :poids, :date_naissance, :statut, :commentaire)");
+        $stmt->bindParam(':licence', $licence);
+        $stmt->bindParam(':nom', $nom);
+        $stmt->bindParam(':prenom', $prenom);
+        $stmt->bindParam(':taille', $taille);
+        $stmt->bindParam(':poids', $poids);
+        $stmt->bindParam(':date_naissance', $date_naissance);
+        $stmt->bindParam(':statut', $statut);
+        $stmt->bindParam(':commentaire', $commentaire);
         $result = $stmt->execute();
-        $stmt->close();
         return $result;
     }
-
 
     /**
      * Retrieve all players from the database.
@@ -52,8 +56,7 @@ class JoueurModel{
     public function getAllJoueurs(){
         $stmt = $this->conn->prepare("SELECT ID_Joueur, Licence, Nom, Prénom, Taille, Poids, Date_Naissance, Statut FROM Joueur");
         $stmt->execute();
-        $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC); // fetch_all() retourne un tableau contenant toute les ligne de résultat
-        $stmt->close();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
 
@@ -64,11 +67,10 @@ class JoueurModel{
      * @return array|null The player's information as an associative array, or null if not found.
      */
     public function getJoueur($id){
-        $stmt = $this->conn->prepare("SELECT * FROM Joueur WHERE ID_Joueur = ?");
-        $stmt->bind_param("i", $id);
+        $stmt = $this->conn->prepare("SELECT * FROM Joueur WHERE ID_Joueur = :id");
+        $stmt->bindParam(':id', $id);
         $stmt->execute();
-        $result = $stmt->get_result()->fetch_assoc(); 
-        $stmt->close();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result;
     }
 
@@ -87,10 +89,17 @@ class JoueurModel{
      * @return bool Returns true on success, false on failure.
      */
     public function updateJoueur($licence, $nom, $prenom, $taille, $poids, $date_naissance, $statut, $commentaire, $id){
-        $stmt = $this->conn->prepare("UPDATE Joueur SET Licence = ?, Nom = ?, Prénom = ?, Taille = ?, Poids = ?, Date_Naissance = ?, Statut = ?, Commentaire = ? WHERE ID_Joueur = ?");
-        $stmt->bind_param("sssddsssi", $licence, $nom, $prenom, $taille, $poids, $date_naissance, $statut, $commentaire, $id);
+        $stmt = $this->conn->prepare("UPDATE Joueur SET Licence = :licence, Nom = :nom, Prénom = :prenom, Taille = :taille, Poids = :poids, Date_Naissance = :date_naissance, Statut = :statut, Commentaire = :commentaire WHERE ID_Joueur = :id");
+        $stmt->bindParam(':licence', $licence);
+        $stmt->bindParam(':nom', $nom);
+        $stmt->bindParam(':prenom', $prenom);
+        $stmt->bindParam(':taille', $taille);
+        $stmt->bindParam(':poids', $poids);
+        $stmt->bindParam(':date_naissance', $date_naissance);
+        $stmt->bindParam(':statut', $statut);
+        $stmt->bindParam(':commentaire', $commentaire);
+        $stmt->bindParam(':id', $id);
         $result = $stmt->execute();
-        $stmt->close();
         return $result;
     }
 
@@ -101,24 +110,22 @@ class JoueurModel{
      * @return bool Retourne true si la suppression a réussi, false sinon.
      */
     public function deleteJoueur($id){
-        $stmt = $this->conn->prepare("DELETE FROM Joueur WHERE ID_Joueur = ?");
-        $stmt->bind_param("i", $id);
-        $stmt->execute();
-        $stmt->close();
+        $stmt = $this->conn->prepare("DELETE FROM Joueur WHERE ID_Joueur = :id");
+        $stmt->bindParam(':id', $id);
+        $result = $stmt->execute();
     }
 
     /**
-     * Closes the database connection.
+     * Ferme la connexion à la base de données.
      *
-     * This method is responsible for properly closing the database connection
-     * to free up resources and ensure that no further queries can be executed
-     * on this connection.
+     * Cette méthode est responsable de fermer la connexion à la base de données
+     * pour libérer les ressources et s'assurer qu'aucune autre requête ne peut être exécutée
+     * sur cette connexion.
      *
      * @return void
      */
-    public function closeConnection(){
-        $this->conn->close();
+    public function closeConnection() {
+        $this->conn = null;
     }
 }
-
 ?>

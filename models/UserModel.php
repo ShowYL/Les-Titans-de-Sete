@@ -30,11 +30,10 @@ class UserModel {
      */
     public function createUser($nomUtilisateur, $password) {
         $hashed_password = password_hash($password, PASSWORD_BCRYPT);
-        $stmt = $this->conn->prepare("INSERT INTO User (Password, Nom_Utilisateur) VALUES (?, ?)");
-        $stmt->bind_param("ss", $hashed_password, $nomUtilisateur);
+        $stmt = $this->conn->prepare("INSERT INTO User (Password, Nom_Utilisateur) VALUES (:password, :nomUtilisateur)");
+        $stmt->bindParam(':password', $hashed_password);
+        $stmt->bindParam(':nomUtilisateur', $nomUtilisateur);
         $result = $stmt->execute();
-        $stmt->close();
-        $this->conn->close();
         return $result;
     }
 
@@ -45,12 +44,10 @@ class UserModel {
      * @return array|null The user information as an associative array, or null if the user is not found.
      */
     public function getUser($nomUtilisateur) {
-        $stmt = $this->conn->prepare("SELECT ID_User, password FROM User WHERE Nom_Utilisateur = ?");
-        $stmt->bind_param("s", $nomUtilisateur);
+        $stmt = $this->conn->prepare("SELECT ID_User, password FROM User WHERE Nom_Utilisateur = :nomUtilisateur");
+        $stmt->bindParam(':nomUtilisateur', $nomUtilisateur);
         $stmt->execute();
-        $result = $stmt->get_result()->fetch_assoc();
-        $stmt->close();
-        $this->conn->close();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result;
     }
 }
