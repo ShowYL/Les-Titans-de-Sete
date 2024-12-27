@@ -1,8 +1,16 @@
 <?php
+require_once '../controllers/selectionController.php';
+
 if(!isset($_COOKIE['auth']) || $_COOKIE['auth']!='true'){
     header('location: login.php');
     exit();
 }
+
+$controller = new selectionController();
+$tableHTML = $controller->getTableHTML();
+$formHTML = $controller->getForm();
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -19,9 +27,11 @@ if(!isset($_COOKIE['auth']) || $_COOKIE['auth']!='true'){
             <div class='main-content'>
                 <div class="table-container">
                 <h2 class="card-title">Selection</h2>
+                <?php echo $tableHTML; ?>
                 </div>
             </div>
         </div>
     </div>
+    <?php echo $formHTML; ?>
 </body>
 </html>
