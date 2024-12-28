@@ -10,6 +10,9 @@ require_once 'db_lestitansdesete.php';
  * @package Les-Titans-de-Sete\models
  */
 class UserModel {
+    /**
+     * @var PDO $conn Database connection object
+     */
     private $conn;
 
     /**

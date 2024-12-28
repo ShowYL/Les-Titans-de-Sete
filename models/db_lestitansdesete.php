@@ -8,10 +8,13 @@
  * @package Les-Titans-de-Sete
  */
 class ConnectionBD {
+    /**
+     * @var PDO $conn Database connection object
+     */
     private $conn;
-    private $servername = "mysql-lestitansdesete.alwaysdata.net";
-    private $username = "385432";
-    private $password = "\$iutinfo";
+    private $servername = "mysql-lestitansdesete.alwaysdata.net"; // "localhost";
+    private $username = "385432"; // "root";
+    private $password = "\$iutinfo"; 
     private $dbname = "lestitansdesete_bd";
 
     /**
