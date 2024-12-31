@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * Class createTable
+ * 
+ * This class is responsible for creating tables in the database.
+ * 
+ * @package Les-Titans-de-Sete
+ * @subpackage components
+ */
 class createTable{
 
     private $string = '';

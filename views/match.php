@@ -28,6 +28,7 @@ $formHTML = $controller->getForm();
                 <?php echo $tableHTML; ?>
                 </div>
             </div>
+            <?php include '../components/footer.php'; ?>
         </div>
     </div>
     <?php echo $formHTML; ?>

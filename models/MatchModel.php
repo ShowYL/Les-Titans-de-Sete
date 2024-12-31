@@ -1,11 +1,14 @@
 <?php 
 require_once 'db_lestitansdesete.php';
 
+
 /**
  * Class MatchModel
  *
  * This class represents the model for handling match-related data.
  * It interacts with the database to perform CRUD operations related to matches.
+ *
+ * @package Les-Titans-de-Sete\models
  */
 class MatchModel{
     /**

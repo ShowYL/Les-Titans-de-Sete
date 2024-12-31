@@ -10,7 +10,6 @@ $controller = new selectionController();
 $tableHTML = $controller->getTableHTML();
 $formHTML = $controller->getForm();
 
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -30,6 +29,7 @@ $formHTML = $controller->getForm();
                 <?php echo $tableHTML; ?>
                 </div>
             </div>
+            <?php include '../components/footer.php'; ?>
         </div>
     </div>
     <?php echo $formHTML; ?>

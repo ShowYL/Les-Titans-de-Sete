@@ -22,6 +22,7 @@ if(!isset($_COOKIE['auth']) || $_COOKIE['auth']!='true'){
             <div class='main-content'>
                 <h2 class="card-title ">Accueil</h2>
             </div>
+            <?php include '../components/footer.php'; ?>   
         </div>
     </div>
 </body>

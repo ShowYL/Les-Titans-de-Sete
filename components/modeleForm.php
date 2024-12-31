@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * Class createForm
+ * 
+ * This class is responsible for creating forms.
+ * 
+ * @package Les-Titans-de-Sete
+ * @subpackage components
+ * @file modeleForm.php
+ */
 class createForm{
 
     private $string = '';
