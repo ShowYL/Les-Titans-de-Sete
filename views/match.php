@@ -7,7 +7,8 @@ if(!isset($_COOKIE['auth']) || $_COOKIE['auth']!='true'){
 }
 $controller = new MatchController();
 $tableHTML = $controller->getTableHTML();
-$formHTML = $controller->getForm();
+
+$formHTML = $controller->getForm(true);
 ?>
 
 <!DOCTYPE html>
@@ -28,6 +29,7 @@ $formHTML = $controller->getForm();
                 <?php echo $tableHTML; ?>
                 </div>
             </div>
+            <?php include '../components/footer.php'; ?>
         </div>
     </div>
     <?php echo $formHTML; ?>

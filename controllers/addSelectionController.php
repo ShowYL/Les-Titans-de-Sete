@@ -11,12 +11,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $controller = new selectionController();
     $error = $controller->createSelection($idJoueur, $idMatch, $titulaire, $poste);
     $controller->closeConnection();
+    
     if (isset($error)) {
         echo $error;
     }else{
         echo "Joueur créeee avec succès";
     }
 }
-
 
 ?>

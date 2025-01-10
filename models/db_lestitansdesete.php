@@ -5,7 +5,7 @@
  * This class is responsible for managing the database connection for the Les Titans de Sete application.
  * It provides methods to establish and close the connection to the database.
  *
- * @package Les-Titans-de-Sete
+ * @package Les-Titans-de-Sete\models
  */
 class ConnectionBD {
     /**

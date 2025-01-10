@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * Class createForm
+ * 
+ * This class is responsible for creating forms.
+ * 
+ * @package Les-Titans-de-Sete
+ * @subpackage components
+ * @file modeleForm.php
+ */
 class createForm{
 
     private $string = '';
@@ -17,6 +26,7 @@ class createForm{
                                     <h2>'.$title.'</h2>'
                                     .'<form id="dynamicForm" method="POST" action="../controllers/'.$controller.'">'
                                     .'<input type="hidden" id="formAction" name="action" value="add">';// to kwon if we are adding or editing
+
     }
 
     /**
@@ -42,7 +52,7 @@ class createForm{
      * @param array $options An associative array of options for the select dropdown, 
      *                       where the key is the option value and the value is the option label.
      */
-    public function addSelect(string $label, string $name, array $options){
+    public function addSelect(string $label, string $name, array $options, $edit = false){
         $this->string .= '<div class="form-group">
                             <label for="'.$name.'">'.$label.'</label>
                             <select id="'.$name.'" name="'.$name.'">';

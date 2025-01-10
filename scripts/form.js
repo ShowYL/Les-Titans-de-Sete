@@ -1,17 +1,24 @@
 const modal = document.getElementById("myModal");
-const btn = document.getElementById("addBtn");
+const addbtn = document.getElementById("addBtn");
 const span = document.getElementsByClassName("close")[0];
 const form = document.getElementById("dynamicForm");
 const formActionInput = document.getElementById("formAction");
 const idInput = document.getElementById("id");
 const originalFormAction = form.getAttribute('action');
 const editBtn = document.getElementById("edit-button");
+const result = document.getElementById("resultat");
+const date = document.getElementById("date");
+const heure = document.getElementById("heure");
+const adversaire = document.getElementById("adversaire");
+const lieu = document.getElementById("lieu");
 
-btn.onclick = function() {
+
+addbtn.onclick = function() {
   form.setAttribute('action', originalFormAction); // remettre à l'action originale
   formActionInput.value = "add";
   idInput.value = ''; // supprimer l'id de la ligne selectionnée
   modal.style.display = "block";
+  result.disabled = true;
 }
 
 span.onclick = function() {
@@ -55,7 +62,11 @@ editBtn.onclick = () => {
                 .then(response => response.json()) // récupérer la réponse du serveur
                 .then(data => {
                     console.log(data); 
+                    const today = new Date().toISOString().split('T')[0];
+
+
                     // Mettre les données du match dans les champs du formulaire
+
                     if (data && !data.error) {
                         document.getElementById('id').value = data.ID_Match;
                         document.getElementById('date').value = data.Date_Match;
@@ -63,11 +74,24 @@ editBtn.onclick = () => {
                         document.getElementById('adversaire').value = data.Equipe_Adverse;
                         document.getElementById('lieu').value = data.Lieu;
                         document.getElementById('resultat').value = data.Résultat;
-                        form.setAttribute('action', "../controllers/editMatchController.php"); // mettre l'action du formulaire à editMatchController.php
+                        form.setAttribute('action', "../controllers/MatchController.php"); // mettre l'action du formulaire à editMatchController.php
                         formActionInput.value = "edit"; // mettre l'action du formulaire à edit
                         modal.style.display = "block"; // Display the modal
+
                     } else {
                         alert('Error: ' + (data.error || 'Unknown error'));
+                    }
+
+                    // Désactiver le champ résultat si la date du match est pas passée
+                    result.disabled = data.Date_Match < today ? false : true;
+                    data.Date_Match 
+
+                    // Désactiver les champs si le match est passé
+                    if (data.Date_Match < today) {
+                      date.disabled = true;
+                      heure.disabled = true;
+                      adversaire.disabled = true;
+                      lieu.disabled = true;
                     }
                 })
                 .catch(error => console.error('Error fetching match data:', error));

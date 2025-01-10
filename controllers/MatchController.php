@@ -50,20 +50,35 @@ class MatchController{
         return $this->tableHTML;
     }
 
-    public function getForm() {
-        $form = new createForm('Ajouter un match', 'addMatchController.php');
+    public function getForm($isEdit = false, $match = null) {
+        $form = new createForm($isEdit ? 'Modifier un match' : 'Ajouter un match', 'MatchController.php');
         $form->addHiddenInput('id');
-        $form->addInput('Date', 'date', 'date');
-        $form->addInput('Heure', 'time', 'heure');
-        $form->addInput('Adversaire', 'text', 'adversaire');
-        $form->addSelect('Lieu', 'lieu', ['Domicile', 'Extérieur']);
-        $form->addSelect('Résultat', 'resultat', ['Victoire', 'Défaite', 'Nul']);
+        $form->addInput('Date', 'date', 'date', $match ? $match['Date_Match'] : '', 'min="' . date('Y-m-d') . '"');
+        $form->addInput('Heure', 'time', 'heure', $match ? $match['Heure_Match'] : '');
+        $form->addInput('Adversaire', 'text', 'adversaire', $match ? $match['Equipe_Adverse'] : '');
+        $form->addSelect('Lieu', 'lieu', ['Domicile', 'Extérieur'], $match ? $match['Lieu'] : '');
+        $form->addSelect('Résultat', 'resultat', ['Victoire', 'Défaite', 'Nul'], $match ? $match['Résultat'] : '');
         $form->addButton('Valider');
         $this->formHTML = $form->getForm();
         return $this->formHTML;
     }
 
+    public function isPastMatch($id) {
+        $match = $this->getMatch($id);
+        if (strtotime($match['Date_Match']) < strtotime(date('Y-m-d'))) {
+            return true;
+        }
+        return false;
+    }
+
+
     public function updateMatch($date, $heure, $adversaire, $lieu, $resultat, $id) {
+        $match = $this->getMatch($id);
+        // if (strtotime($match['Date_Match']) < strtotime(date('Y-m-d'))) {
+        //     return "date";
+        //     exit();
+        // }
+
         if ($this->matchModel->updateMatch($date, $heure, $adversaire, $lieu, $resultat, $id)) {
             header('Location: ../views/match.php');
         } else {
@@ -72,10 +87,15 @@ class MatchController{
     }
 
     public function deleteMatch($id) {
+        $match = $this->getMatch($id);
+        // Validate date
+        if (strtotime($match['Date_Match']) < strtotime(date('Y-m-d'))) {
+            return "date";
+            exit();
+        }
+
         if ($this->matchModel->deleteMatch($id)) {
             header('Location: ../views/match.php');
-        } else {
-            return "Error: Unable to delete match";
         }
     }
 
@@ -83,3 +103,88 @@ class MatchController{
         $this->matchModel->closeConnection();
     }
 }
+
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST['action'] == 'edit') {
+    $id = $_POST['id'];
+    $date = $_POST['date'];
+    $heure = $_POST['heure'];
+    $adversaire = $_POST['adversaire'];
+    $lieu = $_POST['lieu'];
+    $resultat = $_POST['resultat'];
+
+    $controller = new MatchController();
+
+
+
+    $error = $controller->updateMatch($date, $heure, $adversaire, $lieu, $resultat, $id);
+    $controller->closeConnection();
+    
+    if (isset($error)) {
+        echo $error;
+    } else {
+        echo "Match modifié avec succès";
+    }
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST['action'] == 'add') {
+    $date = $_POST['date'];
+    $heure = $_POST['heure'];
+    $adversaire = $_POST['adversaire'];
+    $lieu = $_POST['lieu'];
+    $resultat = $_POST['resultat'];
+    
+
+    $controller = new MatchController();
+    $error = $controller->createMatch($date, $heure, $adversaire, $lieu, $resultat);
+
+    if (isset($error)) {
+        echo $error;
+    } else {
+        echo "Match créé avec succès";
+    }
+}
+
+
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST['action'] == 'edit') {
+    $id = $_POST['id'];
+    $date = $_POST['date'];
+    $heure = $_POST['heure'];
+    $adversaire = $_POST['adversaire'];
+    $lieu = $_POST['lieu'];
+    $resultat = $_POST['resultat'];
+
+    $controller = new MatchController();
+
+
+
+    $error = $controller->updateMatch($date, $heure, $adversaire, $lieu, $resultat, $id);
+    $controller->closeConnection();
+    
+    if (isset($error)) {
+        echo $error;
+    } else {
+        echo "Match modifié avec succès";
+    }
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST['action'] == 'add') {
+    $date = $_POST['date'];
+    $heure = $_POST['heure'];
+    $adversaire = $_POST['adversaire'];
+    $lieu = $_POST['lieu'];
+    $resultat = $_POST['resultat'];
+    
+
+    $controller = new MatchController();
+    $error = $controller->createMatch($date, $heure, $adversaire, $lieu, $resultat);
+
+    if (isset($error)) {
+        echo $error;
+    } else {
+        echo "Match créé avec succès";
+    }
+}
+
+?>

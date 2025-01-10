@@ -1,11 +1,14 @@
 <?php 
 require_once 'db_lestitansdesete.php';
 
+
 /**
  * Class MatchModel
  *
  * This class represents the model for handling match-related data.
  * It interacts with the database to perform CRUD operations related to matches.
+ *
+ * @package Les-Titans-de-Sete\models
  */
 class MatchModel{
     /**
@@ -98,7 +101,7 @@ class MatchModel{
      * @param int $id The ID of the match to delete.
      * @return bool Returns true on success, false on failure.
      */
-    public function delseteMatch($id) {
+    public function deleteMatch($id) {
         $stmt = $this->conn->prepare("DELETE FROM `Match` WHERE ID_Match = :id");
         $stmt->bindParam(':id', $id);
         $result = $stmt->execute();
