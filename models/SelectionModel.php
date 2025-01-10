@@ -100,6 +100,19 @@ class SelectionModel{
         $stmt->bindParam(':id', $id);
         $result = $stmt->execute();
     }
+
+    /**
+     * Retrieves the list of players for a given match.
+     *
+     * @param int $idMatch The ID of the match.
+     * @return array An associative array containing the IDs of the players.
+     */
+    public function getPlayersByMatch($idMatch){
+        $stmt = $this->conn->prepare("SELECT ID_Joueur FROM Selection WHERE ID_Match = :id_match");
+        $stmt->bindParam(':id_match',$idMatch);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
     
     /**
      * Closes the database connection.

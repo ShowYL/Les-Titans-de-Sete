@@ -7,9 +7,8 @@ if(!isset($_COOKIE['auth']) || $_COOKIE['auth']!='true'){
 }
 
 $controller = new selectionController();
-$tableHTML = $controller->getTableHTML();
+$tableHTMLMatch = $controller->getTableHTMLMatch();
 $formHTML = $controller->getForm();
-
 
 ?>
 <!DOCTYPE html>
@@ -27,7 +26,7 @@ $formHTML = $controller->getForm();
             <div class='main-content'>
                 <div class="table-container">
                 <h2 class="card-title">Selection</h2>
-                <?php echo $tableHTML; ?>
+                <?php echo $tableHTMLMatch; ?>
                 </div>
             </div>
         </div>

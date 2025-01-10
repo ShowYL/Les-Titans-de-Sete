@@ -94,7 +94,7 @@ class createForm{
         return $this->string.'</form>
                         </div>
                     </div>
-                <script src="../scripts/form.js"></script> ';
+                <script src="../scripts/formSelection.js"></script> ';
     }
 
 }

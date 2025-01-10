@@ -103,7 +103,7 @@ class MatchModel{
         $stmt->bindParam(':id', $id);
         $result = $stmt->execute();
     }
-
+    
     /**
      * Closes the database connection.
      *

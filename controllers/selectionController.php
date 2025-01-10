@@ -1,7 +1,8 @@
 <?php
-require_once '../components/modeleTable.php';
+require_once '../components/modeleTableSelection.php';
 require_once '../components/modeleForm.php';
 require_once __DIR__ . '/../models/SelectionModel.php';
+require_once __DIR__ . '/../models/MatchModel.php';
 
 /**
  * selectionController class
@@ -19,12 +20,18 @@ class selectionController{
     private $formHTML;
     private $index = ['ID', 'idJoueur', 'idMatch', 'Titulaire', 'Poste'];
 
+    private $matchModel;
+    private $tableMatch;
+    private $tableHTMLMatch;
+    private $indexMatch = ['ID', 'Date', 'Heure', 'Adversaire', 'Lieu', 'Résultat'];
+
     /**
      * selectionController constructor.
      * Initializes a new instance of the selectionController class.
      */
     public function __construct() {
         $this->selectionModel = new SelectionModel();
+        $this->matchModel = new MatchModel();
     }
 
     public function createSelection($idJoueur, $idMatch, $titulaire, $poste) {
@@ -129,6 +136,38 @@ class selectionController{
         return $form->getForm();
     }
 
+    public function getAllMatchs() {
+        $matchs = $this->matchModel->getAllMatchs();
+        return $matchs;
+    }
+
+    public function getMatch($id) {
+        $match = $this->matchModel->getMatch($id);
+        return $match;
+    }
+
+    public function getTableHTMLMatch() {
+        $matchs = $this->getAllMatchs();
+        $data = [];
+        foreach ($matchs as $match) {
+            $data[] = [
+                $match['ID_Match'],
+                $match['Date_Match'],
+                $match['Heure_Match'],
+                $match['Equipe_Adverse'],
+                $match['Lieu'],
+                $match['Résultat']
+            ];
+        }
+        $this->tableMatch = new createTable($data, $this->indexMatch, 'match');
+        $this->tableHTMLMatch = $this->tableMatch->getTable();
+        return $this->tableHTMLMatch;
+    }
+
+    public function getPlayersByMatch($matchId) {
+        return $this->selectionModel->getPlayersByMatch($matchId);
+    }
+
     /**
      * Closes the database connection.
      *
@@ -140,6 +179,17 @@ class selectionController{
      */
     public function closeConnection() {
         $this->selectionModel->closeConnection();
+        $this->matchModel->closeConnection();
     }
+    
 }
+
+if (isset($_GET['matchId'])) {
+    $matchId = $_GET['matchId'];
+    $controller = new selectionController();
+    $players = $controller->getPlayersByMatch($matchId);
+    $controller->closeConnection();
+    echo json_encode($players);
+}
+
 ?>

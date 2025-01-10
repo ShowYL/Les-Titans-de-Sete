@@ -83,5 +83,3 @@ class MatchController{
         $this->matchModel->closeConnection();
     }
 }
-
-?>
