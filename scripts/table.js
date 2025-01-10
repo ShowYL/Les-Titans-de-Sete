@@ -62,7 +62,6 @@ Array.from(tableBody.rows).slice(1).forEach(row => {
         // si touche control préssée alors garder les précédentes sélections
         if (event.ctrlKey) {
             row.classList.toggle('selected');
-
         } else {
             // déselectionner les précédentes lignes
             let previouslySelectedRows = tableBody.querySelectorAll('tr.selected');
@@ -74,7 +73,6 @@ Array.from(tableBody.rows).slice(1).forEach(row => {
 
             // sélectionner la précédente ligne
             row.classList.toggle('selected');
-
         }
     });
 });
@@ -98,7 +96,7 @@ deleteBtn.addEventListener('click', () => {
             })
                 .then(response => response.text())// récupérer la réponse du serveur
                 .then(text => {
-                    console.log('Reponse du servreu:', text);
+                    console.log('Reponse du servreur :', text);
                     try {
                         const data = JSON.parse(text); // convertir la réponse en objet JSON
                         if (data && !data.error) { // si la suppression est effectuée avec succès

@@ -101,7 +101,7 @@ class MatchModel{
      * @param int $id The ID of the match to delete.
      * @return bool Returns true on success, false on failure.
      */
-    public function delseteMatch($id) {
+    public function deleteMatch($id) {
         $stmt = $this->conn->prepare("DELETE FROM `Match` WHERE ID_Match = :id");
         $stmt->bindParam(':id', $id);
         $result = $stmt->execute();
