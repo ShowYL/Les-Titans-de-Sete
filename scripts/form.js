@@ -82,7 +82,7 @@ editBtn.onclick = () => {
                         alert('Error: ' + (data.error || 'Unknown error'));
                     }
 
-                    // Désactiver le champ résultat si la date du match est pas passée
+                    // // Désactiver le champ résultat si la date du match est pas passée
                     result.disabled = data.Date_Match < today ? false : true;
                     data.Date_Match 
 

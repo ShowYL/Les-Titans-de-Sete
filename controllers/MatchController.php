@@ -74,10 +74,10 @@ class MatchController{
 
     public function updateMatch($date, $heure, $adversaire, $lieu, $resultat, $id) {
         $match = $this->getMatch($id);
-        // if (strtotime($match['Date_Match']) < strtotime(date('Y-m-d'))) {
-        //     return "date";
-        //     exit();
-        // }
+        if (strtotime($match['Date_Match']) < strtotime(date('Y-m-d'))) {
+            return "date";
+            exit();
+        }
 
         if ($this->matchModel->updateMatch($date, $heure, $adversaire, $lieu, $resultat, $id)) {
             header('Location: ../views/match.php');

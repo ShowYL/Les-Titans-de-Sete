@@ -88,32 +88,29 @@ deleteBtn.addEventListener('click', () => {
             console.log(`type :${type},  ID: ${id}`); 
 
             deleteBtn.disabled = true;
-            deleteBtn.textContent = 'Suppression...';// l'attent de la suppression car elle peut prendre du temps
+            deleteBtn.textContent = 'Suppression...'; // l'attente de la suppression car elle peut prendre du temps
 
-            // envoyer une requête de suppression au serveur avec la methode GET
+            // envoyer une requête de suppression au serveur avec la méthode GET
             fetch(`../controllers/supp${type === 'match' ? 'Match' : 'Joueur'}Data.php?id=${id}`, {
                 method: 'GET'
             })
-                .then(response => response.text())// récupérer la réponse du serveur
-                .then(text => {
-                    console.log('Reponse du servreur :', text);
-                    try {
-                        const data = JSON.parse(text); // convertir la réponse en objet JSON
-                        if (data && !data.error) { // si la suppression est effectuée avec succès
-                            alert(data.message);
-                            selectedRow.remove();
-                        } else {
-                            alert('Erreur: ' + (data.error || 'Erreur inconnue')); 
-                        }
-                    } catch (error) { // si la réponse n'est pas un objet JSON
-                        console.error('Erreur lors de la suppression:', error);
-                        alert('Erreur lors de la suppression : réponse invalide du serveur.');
+                .then(response => response.json()) // récupérer la réponse du serveur et la convertir en JSON
+                .then(data => {
+                    console.log('Reponse du serveur :', data);
+                    if (data && !data.error) { // si la suppression est effectuée avec succès
+                        alert(data.message);
+                        selectedRow.remove();
+                    } else {
+                        alert('Erreur: ' + (data.error || 'Erreur inconnue')); 
                     }
                 })
-                .catch(error => console.error('Erreur lors de la suppression:', error)) // si la requête échoue
+                .catch(error => {
+                    console.error('Erreur lors de la suppression:', error);
+                    alert('Erreur lors de la suppression : réponse invalide du serveur.');
+                }) // si la requête échoue
                 .finally(() => {
                     deleteBtn.disabled = false;
-                    deleteBtn.textContent = 'Supprimer';// rétablir le texte du bouton
+                    deleteBtn.textContent = 'Supprimer'; // rétablir le texte du bouton
                 });
         }
     } else {
