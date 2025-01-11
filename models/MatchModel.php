@@ -118,5 +118,21 @@ class MatchModel{
     public function closeConnection() {
         $this->conn = null;
     }
+
+    /**
+     * Retrieves the total number of matches, as well as the number of wins, draws, and losses.
+     *
+     * @return array An associative array containing the total number of matches, wins, draws, and losses.
+     */
+    public function getMatchStats() {
+        $stmt = $this->conn->prepare("SELECT 
+            COUNT(*) AS total,
+            SUM(CASE WHEN Résultat = 'Victoire' THEN 1 ELSE 0 END) AS won,
+            SUM(CASE WHEN Résultat = 'Nul' THEN 1 ELSE 0 END) AS draw,
+            SUM(CASE WHEN Résultat = 'Défaite' THEN 1 ELSE 0 END) AS lost
+            FROM `Match`");
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
 }
 ?>

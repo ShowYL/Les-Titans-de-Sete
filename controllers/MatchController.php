@@ -102,6 +102,11 @@ class MatchController{
     public function closeConnection() {
         $this->matchModel->closeConnection();
     }
+
+
+    public function getMatchStats() {
+        return $this->matchModel->getMatchStats();
+    }
 }
 
 

@@ -21,7 +21,7 @@ if(isset($_COOKIE['auth']) && $_COOKIE['auth']=='true'){
                 <tr><td><label for="nomUtilisteur">Nom d'utilisateur :</label></td></tr><tr><td><input type="text" name="nomUtilisateur" id="email" placeholder="nomUtilisateur" required></td></tr>
                 <tr><td><label for="password">Mot de passe :</label></td></tr><tr><td><input type="password" name="password" id="password" placeholder="Mot de passe" required></td></tr>
                 <tr><td><button type="submit">Connexion</button></td></tr>
-                <tr><td><p>Vous n'avez pas de compte ? <a href="createAccount.html">Créez-en un!</a></p></td></tr>
+                <tr><td><p>Vous n'avez pas de compte ? <a href="createAccount.php">Créez-en un!</a></p></td></tr>
             </table>
         </form>
     </div></section>
