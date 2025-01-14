@@ -86,6 +86,20 @@ class MatchController{
         }
     }
 
+    public function updateMatchResult($resultat, $id) {
+        $match = $this->getMatch($id);
+        if (strtotime($match['Date_Match']) > strtotime(date('Y-m-d'))) {
+            return "date";
+            exit();
+        }
+
+        if ($this->matchModel->updateMatchResult($resultat, $id)) {
+            header('Location: ../views/match.php');
+        } else {
+            return "Error: Unable to update match result";
+        }
+    }
+
     public function deleteMatch($id) {
         $match = $this->getMatch($id);
         // Validate date
@@ -96,6 +110,7 @@ class MatchController{
 
         if ($this->matchModel->deleteMatch($id)) {
             header('Location: ../views/match.php');
+            return true;
         }
     }
 
@@ -120,9 +135,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST['action'] == 'edit') {
 
     $controller = new MatchController();
 
+    if ($date == null){
+        $error = $controller->updateMatchResult($resultat, $id);
+    }else {
+        $error = $controller->updateMatch($date, $heure, $adversaire, $lieu, $resultat, $id);
+    }
 
-
-    $error = $controller->updateMatch($date, $heure, $adversaire, $lieu, $resultat, $id);
     $controller->closeConnection();
     
     if (isset($error)) {

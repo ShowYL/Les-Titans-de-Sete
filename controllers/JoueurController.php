@@ -77,10 +77,16 @@ class JoueurController{
      * @return void
      */
     public function deleteJoueur($id) {
+        $result = $this->joueurModel->aDejaJouer($id);
+
+        if ($result) {
+            return "present";
+            exit();
+        }
+
         if ($this->joueurModel->deleteJoueur($id)) {
             header('Location: ../views/joueur.php');
-        } else {
-            return "Error: Unable to delete joueur";
+            return true ;
         }
     }
     

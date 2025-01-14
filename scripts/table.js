@@ -94,9 +94,11 @@ deleteBtn.addEventListener('click', () => {
             fetch(`../controllers/supp${type === 'match' ? 'Match' : 'Joueur'}Data.php?id=${id}`, {
                 method: 'GET'
             })
-                .then(response => response.json()) // récupérer la réponse du serveur et la convertir en JSON
-                .then(data => {
-                    console.log('Reponse du serveur :', data);
+                .then(response => response.text()) // récupérer la réponse du serveur en texte brut
+                .then(text => {
+                    console.log('Reponse du serveur  :', text);
+                    let data = JSON.parse(text); // convertir le texte en JSON
+                    console.log('Reponse du serveur (JSON) :', data);
                     if (data && !data.error) { // si la suppression est effectuée avec succès
                         alert(data.message);
                         selectedRow.remove();

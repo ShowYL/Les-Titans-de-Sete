@@ -105,13 +105,13 @@ editBtn.onclick = () => {
                         document.getElementById('id').value = data.ID_Joueur;
                         document.getElementById('licence').value = data.Licence;
                         document.getElementById('nom').value = data.Nom;
-                        document.getElementById('prenom').value = data.Prenom;
+                        document.getElementById('prenom').value = data.Prénom;
                         document.getElementById('taille').value = data.Taille;
                         document.getElementById('poids').value = data.Poids;
                         document.getElementById('date_naissance').value = data.Date_Naissance;
                         document.getElementById('statut').value = data.Statut;
                         document.getElementById('commentaire').value = data.Commentaire;
-                        form.setAttribute('action', "../controllers/editJoueurController.php"); // mettre l'action du formulaire à editJoueurController.php
+                        form.setAttribute('action', "../controllers/JoueurController.php"); // mettre l'action du formulaire à editJoueurController.php
                         formActionInput.value = "edit";
                         modal.style.display = "block";
                     } else {

@@ -7,11 +7,13 @@ if (isset($_GET['id'])) {
     $player = $controller->getJoueur($id);
     $controller->closeConnection();
     if ($player) {
-        echo json_encode($player);
+        // echo $player;
+        // echo json_encode($player);
     } else {
         echo json_encode(['error' => 'Player not found']);
     }
 } else {
     echo json_encode(['error' => 'ID not provided']);
 }
+
 ?>

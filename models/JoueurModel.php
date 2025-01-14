@@ -118,6 +118,13 @@ class JoueurModel{
         $result = $stmt->execute();
     }
 
+    public function aDejaJouer($id){
+        $stmt = $this->conn->prepare("SELECT * FROM Selection WHERE ID_Joueur = :id");
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
     /**
      * Ferme la connexion à la base de données.
      *

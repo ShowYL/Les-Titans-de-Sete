@@ -95,6 +95,14 @@ class MatchModel{
         return $result;
     }
 
+    public function updateMatchResult($resultat, $id) {
+        $stmt = $this->conn->prepare("UPDATE `Match` SET Résultat = :resultat WHERE ID_Match = :id");
+        $stmt->bindParam(':resultat', $resultat);
+        $stmt->bindParam(':id', $id);
+        $result = $stmt->execute();
+        return $result;
+    }
+
     /**
      * Deletes a match from the database.
      *
