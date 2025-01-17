@@ -9,7 +9,8 @@ require_once 'db_lestitansdesete.php';
  *
  * @package Les-Titans-de-Sete\models
  */
-class SelectionModel{
+class SelectionModel
+{
     /**
      * @var PDO $conn The database connection object.
      */
@@ -18,7 +19,8 @@ class SelectionModel{
     /**
      * Constructor initializes the database connection.
      */
-    public function __construct() {
+    public function __construct()
+    {
         $db = new ConnectionBD();
         $this->conn = $db->getConnection();
     }
@@ -32,7 +34,8 @@ class SelectionModel{
      * @param string $poste The position of the player.
      * @return bool Returns true on success, false on failure.
      */
-    public function createSelection($idJoueur, $idMatch, $titulaire, $poste) {
+    public function createSelection($idJoueur, $idMatch, $titulaire, $poste)
+    {
         $stmt = $this->conn->prepare("INSERT INTO Selection (ID_Joueur, ID_Match, Titulaire, Poste) VALUES (:ID_Joueur, :ID_Match, :Titulaire, :Poste)");
         $stmt->bindParam(':ID_Joueur', $idJoueur);
         $stmt->bindParam(':ID_Match', $idMatch);
@@ -41,13 +44,14 @@ class SelectionModel{
         $result = $stmt->execute();
         return $result;
     }
-    
+
     /**
      * Retrieves all selection records from the database.
      *
      * @return array An associative array of all selection records.
      */
-    public function getAllSelection(){
+    public function getAllSelection()
+    {
         $stmt = $this->conn->prepare("SELECT ID_Selection, ID_Joueur, ID_Match, Titulaire, Poste FROM Selection");
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -60,7 +64,8 @@ class SelectionModel{
      * @param int $id The ID of the selection.
      * @return array An associative array of the selection record.
      */
-    public function getSelection($id){
+    public function getSelection($id)
+    {
         $stmt = $this->conn->prepare("SELECT * FROM Selection WHERE ID_Selection = :id");
         $stmt->bindParam(':id', $id);
         $stmt->execute();
@@ -78,7 +83,8 @@ class SelectionModel{
      * @param string $poste The position of the player.
      * @return bool Returns true on success, false on failure.
      */
-    public function updateSelection($id, $idJoueur, $idMatch, $titulaire, $poste){
+    public function updateSelection($id, $idJoueur, $idMatch, $titulaire, $poste)
+    {
         $stmt = $this->conn->prepare("UPDATE Selection SET ID_Joueur = :idJoueur, ID_Match = :idMatch, Titulaire = :titulaire, Poste = :poste WHERE ID_Selection = :id");
         $stmt->bindParam(':idJoueur', $idJoueur);
         $stmt->bindParam(':idMatch', $idMatch);
@@ -95,7 +101,8 @@ class SelectionModel{
      * @param int $id The ID of the selection.
      * @return bool Returns true on success, false on failure.
      */
-    public function deleteSelection($id){
+    public function deleteSelection($id)
+    {
         $stmt = $this->conn->prepare("DELETE FROM Selection WHERE ID_Selection = :id");
         $stmt->bindParam(':id', $id);
         $result = $stmt->execute();
@@ -107,17 +114,18 @@ class SelectionModel{
      * @param int $idMatch The ID of the match.
      * @return array An associative array containing the IDs of the players.
      */
-    public function getPlayersByMatch($idMatch){
+    public function getPlayersByMatch($idMatch)
+    {
         $stmt = $this->conn->prepare("SELECT ID_Joueur FROM Selection WHERE ID_Match = :id_match");
-        $stmt->bindParam(':id_match',$idMatch);
+        $stmt->bindParam(':id_match', $idMatch);
         $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $stmt->fetchAll();
     }
-    
     /**
      * Closes the database connection.
      */
-    public function closeConnection() {
+    public function closeConnection()
+    {
         $this->conn = null;
     }
 }

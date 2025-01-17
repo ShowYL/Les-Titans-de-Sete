@@ -9,7 +9,8 @@ require_once 'db_lestitansdesete.php';
  *
  * @package Les-Titans-de-Sete\models
  */
-class JoueurModel{
+class JoueurModel
+{
     /**
      * @var PDO $conn The database connection instance.
      */
@@ -19,7 +20,8 @@ class JoueurModel{
      * JoueurModel constructor.
      * Initializes a new instance of the JoueurModel class.
      */
-    public function __construct() {
+    public function __construct()
+    {
         $db = new ConnectionBD();
         $this->conn = $db->getConnection();
     }
@@ -37,7 +39,8 @@ class JoueurModel{
      * @param string $commentaire Additional comments about the joueur.
      * @return bool Returns true on success, false on failure.
      */
-    public function createJoueur($licence, $nom, $prenom, $taille, $poids, $date_naissance, $statut, $commentaire) {
+    public function createJoueur($licence, $nom, $prenom, $taille, $poids, $date_naissance, $statut, $commentaire)
+    {
         $stmt = $this->conn->prepare("INSERT INTO Joueur (Licence, Nom, Prénom, Taille, Poids, Date_Naissance, Statut, Commentaire) VALUES (:licence, :nom, :prenom, :taille, :poids, :date_naissance, :statut, :commentaire)");
         $stmt->bindParam(':licence', $licence);
         $stmt->bindParam(':nom', $nom);
@@ -56,7 +59,8 @@ class JoueurModel{
      *
      * @return array An array of all players.
      */
-    public function getAllJoueurs(){
+    public function getAllJoueurs()
+    {
         $stmt = $this->conn->prepare("SELECT ID_Joueur, Licence, Nom, Prénom, Taille, Poids, Date_Naissance, Statut FROM Joueur");
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -69,7 +73,8 @@ class JoueurModel{
      * @param int $id The ID of the player.
      * @return array|null The player's information as an associative array, or null if not found.
      */
-    public function getJoueur($id){
+    public function getJoueur($id)
+    {
         $stmt = $this->conn->prepare("SELECT * FROM Joueur WHERE ID_Joueur = :id");
         $stmt->bindParam(':id', $id);
         $stmt->execute();
@@ -91,7 +96,8 @@ class JoueurModel{
      * @param int $id The unique identifier of the joueur.
      * @return bool Returns true on success, false on failure.
      */
-    public function updateJoueur($licence, $nom, $prenom, $taille, $poids, $date_naissance, $statut, $commentaire, $id){
+    public function updateJoueur($licence, $nom, $prenom, $taille, $poids, $date_naissance, $statut, $commentaire, $id)
+    {
         $stmt = $this->conn->prepare("UPDATE Joueur SET Licence = :licence, Nom = :nom, Prénom = :prenom, Taille = :taille, Poids = :poids, Date_Naissance = :date_naissance, Statut = :statut, Commentaire = :commentaire WHERE ID_Joueur = :id");
         $stmt->bindParam(':licence', $licence);
         $stmt->bindParam(':nom', $nom);
@@ -112,17 +118,20 @@ class JoueurModel{
      * @param int $id L'identifiant du joueur à supprimer.
      * @return bool Retourne true si la suppression a réussi, false sinon.
      */
-    public function deleteJoueur($id){
+    public function deleteJoueur($id)
+    {
         $stmt = $this->conn->prepare("DELETE FROM Joueur WHERE ID_Joueur = :id");
         $stmt->bindParam(':id', $id);
         $result = $stmt->execute();
     }
 
-    public function aDejaJouer($id){
+    public function aDejaJouer($id)
+    {
         $stmt = $this->conn->prepare("SELECT * FROM Selection WHERE ID_Joueur = :id");
         $stmt->bindParam(':id', $id);
         $stmt->execute();
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result ? $result : false;
     }
 
     /**
@@ -134,7 +143,8 @@ class JoueurModel{
      *
      * @return void
      */
-    public function closeConnection() {
+    public function closeConnection()
+    {
         $this->conn = null;
     }
 }

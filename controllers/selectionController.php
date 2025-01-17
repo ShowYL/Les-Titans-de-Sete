@@ -3,6 +3,7 @@ require_once '../components/modeleTableSelection.php';
 require_once '../components/modeleForm.php';
 require_once __DIR__ . '/../models/SelectionModel.php';
 require_once __DIR__ . '/../models/MatchModel.php';
+require_once __DIR__ . '/../models/JoueurModel.php';
 
 /**
  * selectionController class
@@ -13,7 +14,8 @@ require_once __DIR__ . '/../models/MatchModel.php';
  * @package Les-Titans-de-Sete
  * @subpackage Controllers
  */
-class selectionController{
+class selectionController
+{
     private $selectionModel;
     private $table;
     private $tableHTML;
@@ -21,6 +23,7 @@ class selectionController{
     private $index = ['ID', 'idJoueur', 'idMatch', 'Titulaire', 'Poste'];
 
     private $matchModel;
+    private $joueurModel;
     private $tableMatch;
     private $tableHTMLMatch;
     private $indexMatch = ['ID', 'Date', 'Heure', 'Adversaire', 'Lieu', 'Résultat'];
@@ -29,12 +32,15 @@ class selectionController{
      * selectionController constructor.
      * Initializes a new instance of the selectionController class.
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->selectionModel = new SelectionModel();
         $this->matchModel = new MatchModel();
+        $this->joueurModel = new JoueurModel();
     }
 
-    public function createSelection($idJoueur, $idMatch, $titulaire, $poste) {
+    public function createSelection($idJoueur, $idMatch, $titulaire, $poste)
+    {
         if ($this->selectionModel->createSelection($idJoueur, $idMatch, $titulaire, $poste)) {
             header('Location: ../views/selection.php');
         } else {
@@ -51,7 +57,8 @@ class selectionController{
      * @param string $poste The position of the player.
      * @return string|void Returns an error message if the selection creation fails, otherwise redirects to the selection view.
      */
-    public function updateSelection($id, $idJoueur, $idMatch, $titulaire, $poste) {
+    public function updateSelection($id, $idJoueur, $idMatch, $titulaire, $poste)
+    {
         if ($this->selectionModel->updateSelection($id, $idJoueur, $idMatch, $titulaire, $poste)) {
             header('Location: ../views/selection.php');
         } else {
@@ -65,14 +72,15 @@ class selectionController{
      * @param int $id The ID of the selection to be deleted.
      * @return void
      */
-    public function deleteSelection($id) {
+    public function deleteSelection($id)
+    {
         if ($this->selectionModel->deleteSelection($id)) {
             header('Location: ../views/selection.php');
         } else {
             return "Error: Unable to delete selection";
         }
     }
-    
+
 
     /**
      * Retrieve all selections.
@@ -81,7 +89,8 @@ class selectionController{
      *
      * @return array An array of player objects.
      */
-    public function getAllSelection() {
+    public function getAllSelection()
+    {
         $selection = $this->selectionModel->getAllSelection();
         return $selection;
     }
@@ -91,7 +100,8 @@ class selectionController{
      *
      * @return string The HTML table as a string.
      */
-    public function getTableHTML() {
+    public function getTableHTML()
+    {
         $selections = $this->getAllSelection();
         $data = [];
         foreach ($selections as $selection) {
@@ -114,7 +124,8 @@ class selectionController{
      * @param int $id The ID of the selection to retrieve.
      * @return mixed The selection's information, or null if not found.
      */
-    public function getSelection($id) {
+    public function getSelection($id)
+    {
         $selection = $this->selectionModel->getSelection($id);
         return $selection;
     }
@@ -124,7 +135,8 @@ class selectionController{
      *
      * @return string The HTML form as a string.
      */
-    public function getForm() {
+    public function getForm()
+    {
         $form = new createForm('Ajouter une selection', 'addSelectionController.php');
         $form->addHiddenInput('id');
         $form->addInput('ID_Joueur', 'text', 'ID_Joueur', true);
@@ -136,36 +148,45 @@ class selectionController{
         return $form->getForm();
     }
 
-    public function getAllMatchs() {
+    public function getAllMatchs()
+    {
         $matchs = $this->matchModel->getAllMatchs();
         return $matchs;
     }
 
-    public function getMatch($id) {
+    public function getMatch($id)
+    {
         $match = $this->matchModel->getMatch($id);
         return $match;
     }
 
-    public function getTableHTMLMatch() {
+
+    public function getTableHTMLMatch()
+    {
         $matchs = $this->getAllMatchs();
-        $data = [];
-        foreach ($matchs as $match) {
-            $data[] = [
+        $dataMatch = [];
+        $dataJoueur = [];
+        foreach ($matchs as $index=>$match) {
+            $dataMatch[] = [
                 $match['ID_Match'],
                 $match['Date_Match'],
-                $match['Heure_Match'],
-                $match['Equipe_Adverse'],
-                $match['Lieu'],
-                $match['Résultat']
+                $match['Equipe_Adverse']
             ];
+            $temp = $this->selectionModel->getPlayersByMatch($match['ID_Match']);
+            if (!empty($temp)) {
+                foreach ($temp as $player) {
+                    $res = $this->joueurModel->getJoueur($player['ID_Joueur']);
+                    if ($res) {
+                        $dataJoueur[$index][] = [$res['ID_Joueur'], $res['Nom'], $res['Prénom']];
+                    }
+                }
+            } else {
+                $dataJoueur[$index][] = [];
+            }
         }
-        $this->tableMatch = new createTable($data, $this->indexMatch, 'match');
+        $this->tableMatch = new createTable($dataMatch, $dataJoueur);
         $this->tableHTMLMatch = $this->tableMatch->getTable();
         return $this->tableHTMLMatch;
-    }
-
-    public function getPlayersByMatch($matchId) {
-        return $this->selectionModel->getPlayersByMatch($matchId);
     }
 
     /**
@@ -177,11 +198,12 @@ class selectionController{
      *
      * @return void
      */
-    public function closeConnection() {
+    public function closeConnection()
+    {
         $this->selectionModel->closeConnection();
         $this->matchModel->closeConnection();
     }
-    
+
 }
 
 if (isset($_GET['matchId'])) {
