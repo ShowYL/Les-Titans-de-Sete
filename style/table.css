@@ -6,6 +6,32 @@ table {
   cursor: default;
 }
 
+summary{
+  cursor: default;
+  position: relative;
+  list-style: none;
+}
+
+summary::after{
+  content: '+';
+  position: absolute;
+  left: -20px;
+  transform: rotate(0deg);
+  transition: all 0.5s ease;
+}
+
+details[open] > summary::after{
+  content: '+';
+  transform: rotate(45deg);
+}
+
+details{
+  border:2px solid grey;
+  margin:1%;
+  padding:3px;
+  border-radius: 4px;
+}
+
 table th,
 table td {
   border: 1px solid #ddd;
