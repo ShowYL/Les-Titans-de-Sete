@@ -95,6 +95,23 @@ class SelectionModel
         return $result;
     }
 
+    public function deleteSelectionByPlayerAndMatch($idJoueur, $idMatch)
+    {
+        $stmt = $this->conn->prepare("DELETE FROM Selection WHERE ID_Joueur = :idJoueur AND ID_Match = :idMatch");
+        $stmt->bindParam(':idJoueur', $idJoueur);
+        $stmt->bindParam(':idMatch', $idMatch);
+        return $stmt->execute();
+    }
+
+    public function getSelectionByPlayerAndMatch($joueurId, $matchId)
+    {
+        $stmt = $this->conn->prepare("SELECT * FROM Selection WHERE ID_Joueur = :joueurId AND ID_Match = :matchId");
+        $stmt->bindParam(':joueurId', $joueurId);
+        $stmt->bindParam(':matchId', $matchId);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
     /**
      * Deletes a selection record from the database.
      *

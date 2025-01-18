@@ -1,6 +1,6 @@
 <?php
 require_once '../components/modeleTableSelection.php';
-require_once '../components/modeleForm.php';
+require_once '../components/modeleFormSelection.php';
 require_once __DIR__ . '/../models/SelectionModel.php';
 require_once __DIR__ . '/../models/MatchModel.php';
 require_once __DIR__ . '/../models/JoueurModel.php';
@@ -39,8 +39,21 @@ class selectionController
         $this->joueurModel = new JoueurModel();
     }
 
-    public function createSelection($idJoueur, $idMatch, $titulaire, $poste)
-    {
+    public function createSelection($idJoueur, $idMatch, $titulaire, $poste) {
+        $validPositions = [
+            'Pilier Gauche',
+            'Pilier Droit', 
+            'Talon',
+            'Demi de mêlée',
+            'Centre',
+            'Ailier Gauche',
+            'Ailier Droit'
+        ];
+        
+        if (!in_array($poste, $validPositions)) {
+            return "Error: Invalid position selected";
+        }
+    
         if ($this->selectionModel->createSelection($idJoueur, $idMatch, $titulaire, $poste)) {
             header('Location: ../views/selection.php');
         } else {
@@ -135,14 +148,21 @@ class selectionController
      *
      * @return string The HTML form as a string.
      */
-    public function getForm()
-    {
+    public function getForm() {
         $form = new createForm('Ajouter une selection', 'addSelectionController.php');
         $form->addHiddenInput('id');
         $form->addInput('ID_Joueur', 'text', 'ID_Joueur', true);
         $form->addInput('ID_Match', 'text', 'ID_Match', true);
-        $form->addInput('Titulaire', 'text', 'Titulaire', true);
-        $form->addInput('Poste', 'text', 'Poste', true);
+        $form->addSelect('Titulaire', 'Titulaire', ['0' => 'Non', '1' => 'Oui']);
+        $form->addSelect('Poste', 'Poste', [
+            'Pilier Gauche',
+            'Pilier Droit', 
+            'Talon',
+            'Demi de mêlée',
+            'Centre',
+            'Ailier Gauche',
+            'Ailier Droit'
+        ]);
         $form->addButton('Valider');
         $this->formHTML = $form->getForm();
         return $form->getForm();
@@ -166,7 +186,7 @@ class selectionController
         $matchs = $this->getAllMatchs();
         $dataMatch = [];
         $dataJoueur = [];
-        foreach ($matchs as $index=>$match) {
+        foreach ($matchs as $index => $match) {
             $dataMatch[] = [
                 $match['ID_Match'],
                 $match['Date_Match'],
@@ -189,6 +209,16 @@ class selectionController
         return $this->tableHTMLMatch;
     }
 
+    public function deleteSelectionByPlayerAndMatch($idJoueur, $idMatch)
+    {
+        return $this->selectionModel->deleteSelectionByPlayerAndMatch($idJoueur, $idMatch);
+    }
+
+    public function getSelectionByPlayerAndMatch($joueurId, $matchId)
+    {
+        return $this->selectionModel->getSelectionByPlayerAndMatch($joueurId, $matchId);
+    }
+
     /**
      * Closes the database connection.
      *
@@ -204,14 +234,6 @@ class selectionController
         $this->matchModel->closeConnection();
     }
 
-}
-
-if (isset($_GET['matchId'])) {
-    $matchId = $_GET['matchId'];
-    $controller = new selectionController();
-    $players = $controller->getPlayersByMatch($matchId);
-    $controller->closeConnection();
-    echo json_encode($players);
 }
 
 ?>
