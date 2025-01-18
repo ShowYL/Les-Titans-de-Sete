@@ -17,7 +17,7 @@ summary::after{
   position: absolute;
   left: -20px;
   transform: rotate(0deg);
-  transition: all 0.5s ease;
+  transition: ease-in-out 0.2s;
 }
 
 details[open] > summary::after{
@@ -25,11 +25,27 @@ details[open] > summary::after{
   transform: rotate(45deg);
 }
 
+details[open] > *:not(summary) {
+  animation: sweep 0.2s ease-in;
+}
+
+@keyframes sweep {
+  0% {
+      opacity: 0;
+      transform: translateY(-5px);
+  }
+  100% {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+
 details{
   border:2px solid grey;
   margin:1%;
   padding:3px;
   border-radius: 4px;
+  transform-origin: top;
 }
 
 table th,
