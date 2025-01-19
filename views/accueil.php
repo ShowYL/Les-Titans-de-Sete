@@ -2,13 +2,14 @@
 // views/accueil.php
 
 require_once '../controllers/MatchController.php';
+require_once '../controllers/AccueilController.php';
 
 if(!isset($_COOKIE['auth']) || $_COOKIE['auth']!='true'){
     header('location: login.php');
     exit();
 }
 
-$controller = new MatchController();
+$controller = new AccueilController();
 $stats = $controller->getMatchStats();
 $total = $stats['total'];
 $won = $stats['won'];
@@ -18,6 +19,9 @@ $lost = $stats['lost'];
 $wonPercentage = $total > 0 ? ($won / $total) * 100 : 0;
 $drawPercentage = $total > 0 ? ($draw / $total) * 100 : 0;
 $lostPercentage = $total > 0 ? ($lost / $total) * 100 : 0;
+
+$table = $controller->getTableHTML();
+
 
 $controller->closeConnection();
 ?>
@@ -54,6 +58,11 @@ $controller->closeConnection();
                         <p><?php echo $lost; ?> (<?php echo number_format($lostPercentage, 2); ?>%)</p>
                     </div>
                 </div>
+                
+                <?php
+                // Afficher la table générée par le composant modeleTable
+                echo $table;
+                ?>
             </div>
             <?php include '../components/footer.php'; ?>   
         </div>

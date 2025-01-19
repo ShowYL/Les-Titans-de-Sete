@@ -138,6 +138,79 @@ class SelectionModel
         $stmt->execute();
         return $stmt->fetchAll();
     }
+
+    /**
+     * Retrieve the statistics of a player based on their ID.
+     *
+     * @param int $id The ID of the player.
+     * @return array The player's statistics.
+     */
+    public function getPlayerStats($id)
+    {
+        $stmt = $this->conn->prepare("
+            SELECT 
+                COUNT(CASE WHEN Titulaire = 1 THEN 1 END) AS titularisations,
+                COUNT(CASE WHEN Titulaire = 0 THEN 1 END) AS remplacements,
+                AVG(Note) AS moyenne_evaluations,
+                (SUM(CASE WHEN Résultat = 'Victoire' THEN 1 ELSE 0 END) / COUNT(*)) * 100 AS pourcentage_matchs_gagnes
+            FROM Selection
+            JOIN `Match` ON Selection.ID_Match = `Match`.ID_Match
+            WHERE ID_Joueur = :id
+        ");
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Retrieve the number of consecutive selections for a player.
+     *
+     * @param int $id The ID of the player.
+     * @return int The number of consecutive selections.
+     */
+    public function getConsecutiveSelections($id)
+    {
+        $stmt = $this->conn->prepare("
+            SELECT COUNT(*) AS consecutive_selections
+            FROM (
+                SELECT 
+                    ID_Joueur, 
+                    Titulaire, 
+                    LAG(Titulaire) OVER (ORDER BY Date_Match) AS previous_titulaire
+                FROM Selection
+                JOIN `Match` ON Selection.ID_Match = `Match`.ID_Match
+                WHERE ID_Joueur = :id
+            ) AS subquery
+            WHERE Titulaire = 1 AND (previous_titulaire = 1 OR previous_titulaire IS NULL)
+        ");
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['consecutive_selections'];
+    }
+
+    /**
+     * Retrieve the preferred position of a player based on the position they have played the most.
+     *
+     * @param int $id The ID of the player.
+     * @return string The preferred position of the player.
+     */
+    public function getPreferredPosition($id)
+    {
+        $stmt = $this->conn->prepare("
+            SELECT Poste, COUNT(*) AS count
+            FROM Selection
+            WHERE ID_Joueur = :id
+            GROUP BY Poste
+            ORDER BY count DESC
+            LIMIT 1
+        ");
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result ? $result['Poste'] : 'N/A';
+    }
+    
     /**
      * Closes the database connection.
      */
