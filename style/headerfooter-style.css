@@ -1,0 +1,124 @@
+/* ------------------------------------------------------ */
+/* Style du header  */
+/* ------------------------------------------------------ */
+
+.logo {
+    width: 75%;
+    height: 10%;
+}
+
+.nav-image {
+    width: 30%;
+    height: 85%;
+}
+
+.navi {
+    background-color: #403d39;
+    color: white;
+    padding: 10px 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    height: 50%;
+}
+
+nav ul li {
+    display: flex;
+    align-items: center;
+    margin: 8% 15px;
+}
+
+nav ul li button {
+    color: white;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+}
+
+.nav-button,
+.logout-button {
+    display: flex;
+    align-items: center;
+    background-color: #403d39;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+    text-decoration: none;
+    height: 50%;
+}
+
+.logout-button {
+    background-color: #555;
+    margin: 1% 15px;
+}
+
+.nav-button img,
+.logout-button img {
+    margin-right: 10px;
+}
+
+button:hover,
+.nav-button:hover,
+.logout-button:hover {
+    background-color: #666;
+}
+
+.vertical-hr {
+    background-color: #999;
+    height: 150%;
+    width: 4%;
+    margin-right: 13px;
+    display: none;
+    border-radius: 20px;
+}
+
+.nav-button.disabled-hover:hover {
+    background-color: #403d39;
+    /* même couleur que le fond pour désactiver le hover */
+    cursor: default;
+}
+
+/* ------------------------------------------------------ */
+/* Style du Footer  */
+/* ------------------------------------------------------ */
+/* 
+footer {
+    background-color: #333;
+    color: white;
+    padding: 10px 0;
+    border-radius: 8px;
+    text-align: center;
+}
+
+footer p {
+    margin: 0;
+} */
+
+/* ------------------------------------------------------ */
+/* Style du Header  */
+/* ------------------------------------------------------ */
+
+.header_title {
+    height: 100%;
+    width: 100%;
+    /* padding-left: 15px; */
+    background-color: rgb(255, 255, 255);
+}
