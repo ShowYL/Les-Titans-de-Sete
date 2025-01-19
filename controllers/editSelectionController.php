@@ -11,14 +11,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['a
     $idMatch = isset($_POST['ID_Match']) ? intval($_POST['ID_Match']) : null;
     $titulaire = isset($_POST['Titulaire']) ? intval($_POST['Titulaire']) : null;
     $poste = isset($_POST['Poste']) ? trim($_POST['Poste']) : '';
+    $note = isset($_POST['Note']) ? intval($_POST['Note']) : null;
     $selectionId = isset($_POST['id']) ? intval($_POST['id']) : null; // Ensure you have a hidden 'id' field in your form
 
     if ($idJoueur && $idMatch && $selectionId !== null) {
         $controller = new selectionController();
-        $result = $controller->updateSelection($selectionId, $idJoueur, $idMatch, $titulaire, $poste);
+        $result = $controller->updateSelection($idJoueur, $idMatch, $titulaire, $poste, $note);
         $controller->closeConnection();
 
-        if ($result === true) {
+        if ($result == true) {
             echo json_encode(['success' => true, 'message' => 'Selection modifiée avec succès.']);
         } else {
             echo json_encode(['success' => false, 'error' => $result]);

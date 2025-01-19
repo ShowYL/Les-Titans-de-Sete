@@ -102,11 +102,14 @@ editBtns.forEach(editBtn => {
 
           if (data && !data.error) {
             // Fill form with selection data
+            document.getElementById('id').value = data.ID_Selection ;
             document.getElementById('ID_Joueur').value = data.ID_Joueur || '';
             document.getElementById('ID_Match').value = data.ID_Match || '';
             document.getElementById('Titulaire').value = data.Titulaire == '0' ? 'Non' : 'Oui'; // Convert to Yes/No
             document.getElementById('Poste').value = data.Poste || 'Pilier Gauche'; // Default position
             document.getElementById('Note').value = data.Note || '';
+
+
 
             // Update form settings
             form.setAttribute('action', '../controllers/editSelectionController.php');

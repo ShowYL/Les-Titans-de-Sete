@@ -76,9 +76,9 @@ class selectionController
      * @param string $poste The position of the player.
      * @return string|void Returns an error message if the selection creation fails, otherwise redirects to the selection view.
      */
-    public function updateSelection($id, $idJoueur, $idMatch, $titulaire, $poste, $note)
+    public function updateSelection( $idJoueur, $idMatch, $titulaire, $poste, $note)
     {
-        if ($this->selectionModel->updateSelection($id, $idJoueur, $idMatch, $titulaire, $poste, $note)) {
+        if ($this->selectionModel->updateSelection( $idJoueur, $idMatch, $titulaire, $poste, $note)) {
             header('Location: ../views/selection.php');
         } else {
             return "Error: Unable to update selection";

@@ -83,15 +83,14 @@ class SelectionModel
      * @param string $poste The position of the player.
      * @return bool Returns true on success, false on failure.
      */
-    public function updateSelection($id, $idJoueur, $idMatch, $titulaire, $poste, $note)
+    public function updateSelection($idJoueur, $idMatch, $titulaire, $poste, $note)
     {
-        $stmt = $this->conn->prepare("UPDATE Selection SET ID_Joueur = :idJoueur, ID_Match = :idMatch, Titulaire = :titulaire, Poste = :poste, Note = :note WHERE ID_Selection = :id");
+        $stmt = $this->conn->prepare("UPDATE Selection SET ID_Joueur = :idJoueur, ID_Match = :idMatch, Titulaire = :titulaire, Poste = :poste, Note = :note WHERE ID_Match = :idMatch AND ID_Joueur = :idJoueur");
         $stmt->bindParam(':idJoueur', $idJoueur);
         $stmt->bindParam(':idMatch', $idMatch);
         $stmt->bindParam(':titulaire', $titulaire);
         $stmt->bindParam(':poste', $poste);
         $stmt->bindParam(':note', $note);
-        $stmt->bindParam(':id', $id);
         $result = $stmt->execute();
         return $result;
     }
@@ -107,7 +106,7 @@ class SelectionModel
     public function getSelectionByPlayerAndMatch($joueurId, $matchId)
     {
         $stmt = $this->conn->prepare("
-        SELECT s.ID_Match, s.ID_Joueur, s.Titulaire, s.Poste, s.Note, m.Date_Match 
+        SELECT s.ID_Selection, s.ID_Match, s.ID_Joueur, s.Titulaire, s.Poste, s.Note, m.Date_Match 
         FROM Selection s, `Match` m
         WHERE s.ID_Match = m.ID_Match
         AND s.ID_Joueur = :joueurId AND s.ID_Match = :matchId
