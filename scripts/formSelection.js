@@ -142,7 +142,7 @@ deleteBtns.forEach(deleteBtn => {
     const table = matchDetails.querySelector('.table-search');
     const selectedRows = table.querySelectorAll('tr.selected');
 
-    if (selectedRows.length === 1 && confirm('Are you sure you want to delete this selection?')) {
+    if (selectedRows.length === 1 && confirm('Êtes-vous sur de vouloir supprimer cette selection ?')) {
       try {
         const row = selectedRows[0];
         const joueurIdConcat = row.cells[0].textContent.trim();
