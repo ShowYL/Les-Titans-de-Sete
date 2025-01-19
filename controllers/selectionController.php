@@ -53,6 +53,12 @@ class selectionController
         if (!in_array($poste, $validPositions)) {
             return "Error: Invalid position selected";
         }
+
+        if ($titulaire == 'Oui') {
+            $titulaire = 1;
+        } else {
+            $titulaire = 0;
+        }
     
         if ($this->selectionModel->createSelection($idJoueur, $idMatch, $titulaire, $poste)) {
             header('Location: ../views/selection.php');
@@ -70,9 +76,9 @@ class selectionController
      * @param string $poste The position of the player.
      * @return string|void Returns an error message if the selection creation fails, otherwise redirects to the selection view.
      */
-    public function updateSelection($id, $idJoueur, $idMatch, $titulaire, $poste)
+    public function updateSelection($id, $idJoueur, $idMatch, $titulaire, $poste, $note)
     {
-        if ($this->selectionModel->updateSelection($id, $idJoueur, $idMatch, $titulaire, $poste)) {
+        if ($this->selectionModel->updateSelection($id, $idJoueur, $idMatch, $titulaire, $poste, $note)) {
             header('Location: ../views/selection.php');
         } else {
             return "Error: Unable to update selection";
@@ -154,11 +160,11 @@ class selectionController
         $activeJoueurs = $this->joueurModel->getActiveJoueurs();
         $options = [];
         foreach ($activeJoueurs as $joueur) {
-            $options[$joueur['ID_Joueur']] = $joueur['Nom'] . ' ' . $joueur['Prénom'];
+            $options[$joueur['ID_Joueur']] = $joueur['ID_Joueur'];
         }
         $form->addSelect('ID_Joueur', 'ID_Joueur', $options, true);
         $form->addInput('ID_Match', 'text', 'ID_Match', true);
-        $form->addSelect('Titulaire', 'Titulaire', ['0' => 'Non', '1' => 'Oui']);
+        $form->addSelect('Titulaire', 'Titulaire', ['Non', 'Oui']);
         $form->addSelect('Poste', 'Poste', [
             'Pilier Gauche',
             'Pilier Droit', 
@@ -168,6 +174,7 @@ class selectionController
             'Ailier Gauche',
             'Ailier Droit'
         ]);
+        $form->addInput('Note', 'text', 'Note', false);
         $form->addButton('Valider');
         $this->formHTML = $form->getForm();
         return $form->getForm();
