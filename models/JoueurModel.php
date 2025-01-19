@@ -134,6 +134,14 @@ class JoueurModel
         return $result ? true : false;
     }
 
+    public function getActiveJoueurs()
+    {
+    $stmt = $this->conn->prepare("SELECT ID_Joueur, Nom, Prénom FROM Joueur WHERE Statut = 'actif'");
+    $stmt->execute();
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $result;
+    }
+
     /**
      * Ferme la connexion à la base de données.
      *

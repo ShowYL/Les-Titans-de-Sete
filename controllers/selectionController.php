@@ -151,7 +151,12 @@ class selectionController
     public function getForm() {
         $form = new createForm('Ajouter une selection', 'addSelectionController.php');
         $form->addHiddenInput('id');
-        $form->addInput('ID_Joueur', 'text', 'ID_Joueur', true);
+        $activeJoueurs = $this->joueurModel->getActiveJoueurs();
+        $options = [];
+        foreach ($activeJoueurs as $joueur) {
+            $options[$joueur['ID_Joueur']] = $joueur['Nom'] . ' ' . $joueur['Prénom'];
+        }
+        $form->addSelect('ID_Joueur', 'ID_Joueur', $options, true);
         $form->addInput('ID_Match', 'text', 'ID_Match', true);
         $form->addSelect('Titulaire', 'Titulaire', ['0' => 'Non', '1' => 'Oui']);
         $form->addSelect('Poste', 'Poste', [

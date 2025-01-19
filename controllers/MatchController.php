@@ -102,11 +102,13 @@ class MatchController{
 
     public function deleteMatch($id) {
         $match = $this->getMatch($id);
-        // Validate date
-        if (strtotime($match['Date_Match']) < strtotime(date('Y-m-d'))) {
+        $currentDate = date('Y-m-d');
+        $currentTime = date('H:i:s');
+        // Validate date and time
+        if ((strtotime($match['Date_Match']) < strtotime($currentDate)) || (strtotime($match['Date_Match']) == strtotime($currentDate) && strtotime($match['Heure_Match']) < strtotime($currentTime))) {
             return "date";
             exit();
-        }
+        } ;
 
         if ($this->matchModel->deleteMatch($id)) {
             header('Location: ../views/match.php');
