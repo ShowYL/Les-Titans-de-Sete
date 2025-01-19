@@ -69,15 +69,30 @@ body {
 }
 
 .stats-container {
+  max-width: 1700px;
+  background: #fff;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  /* Adjust height to fit within the viewport */
+  overflow-y: auto;
+  /* Add vertical scroll if content overflows */
+}
+
+.cards-container {
+  font-family: Arial, sans-serif;
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
+  padding: 1rem;
   justify-content: center;
   margin-top: 20px;
 }
 
+
+
 .card {
-  background-color: #fff;
+  background-color: #b5b3b3;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);

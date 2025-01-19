@@ -39,30 +39,34 @@ $controller->closeConnection();
                 <?php include '../components/header.php'; ?>
             </div>
             <div class='main-content'>
-                <h2 class="card-title "> Statistique du club </h2>
                 <div class="stats-container">
-                    <div class="card">
-                        <h3>Total de matchs</h3>
-                        <p><?php echo $total; ?></p>
-                    </div>
-                    <div class="card">
-                        <h3>Matchs gagnés</h3>
-                        <p><?php echo $won; ?> (<?php echo number_format($wonPercentage, 2); ?>%)</p>
-                    </div>
-                    <div class="card">
-                        <h3>Matchs nuls</h3>
-                        <p><?php echo $draw; ?> (<?php echo number_format($drawPercentage, 2); ?>%)</p>
-                    </div>
-                    <div class="card">
-                        <h3>Matchs perdus</h3>
-                        <p><?php echo $lost; ?> (<?php echo number_format($lostPercentage, 2); ?>%)</p>
+                    <h2 class="card-title "> Statistique du club </h2>
+                    <div class="cards-container">
+                        <div class="card">
+                            <h3>Total de matchs</h3>
+                            <p><?php echo $total; ?></p>
+                        </div>
+                        <div class="card">
+                            <h3>Matchs gagnés</h3>
+                            <p><?php echo $won; ?> (<?php echo number_format($wonPercentage, 2); ?>%)</p>
+                        </div>
+                        <div class="card">
+                            <h3>Matchs nuls</h3>
+                            <p><?php echo $draw; ?> (<?php echo number_format($drawPercentage, 2); ?>%)</p>
+                        </div>
+                        <div class="card">
+                            <h3>Matchs perdus</h3>
+                            <p><?php echo $lost; ?> (<?php echo number_format($lostPercentage, 2); ?>%)</p>
+                        </div>
                     </div>
                 </div>
-                
-                <?php
-                // Afficher la table générée par le composant modeleTable
-                echo $table;
-                ?>
+                <div class="table-container">
+                <h2 class="card-title"> Liste des joueurs </h2>
+                    <?php
+                    // Afficher la table générée par le composant modeleTable
+                    echo $table;
+                    ?>
+                </div>
             </div>
             <?php include '../components/footer.php'; ?>   
         </div>
