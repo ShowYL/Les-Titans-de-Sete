@@ -60,7 +60,7 @@ $controller->closeConnection();
                         </div>
                     </div>
                 </div>
-                <div class="table-container">
+                <div class="table-container_stats">
                 <h2 class="card-title"> Liste des joueurs </h2>
                     <?php
                     // Afficher la table générée par le composant modeleTable

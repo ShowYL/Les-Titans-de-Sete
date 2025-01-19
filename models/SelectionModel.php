@@ -201,7 +201,7 @@ class SelectionModel
      * @param int $id The ID of the player.
      * @return string The preferred position of the player.
      */
-    public function getPreferredPosition($id)
+    public function getPreferredPosition($id_joueur)
     {
         $stmt = $this->conn->prepare("
             SELECT Poste, COUNT(*) AS count
@@ -211,10 +211,15 @@ class SelectionModel
             ORDER BY count DESC
             LIMIT 1
         ");
-        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':id', $id_joueur);
         $stmt->execute();
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $result ? $result['Poste'] : 'N/A';
+        $result= $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($result) {
+            return $result['Poste'];
+        } else {
+            error_log("No preferred position found for player ID: " . $id_joueur);
+            return null;
+        }
     }
     
     /**
