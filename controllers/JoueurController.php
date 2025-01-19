@@ -174,12 +174,6 @@ class JoueurController{
     }
 }
 
-if(isset($_GET['id'])){
-    $controller = new JoueurController();
-    $result = $controller->getJoueur($_GET['id']);
-    $controller->closeConnection();
-    echo json_encode($result);
-}
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST['action'] == 'edit') {
     $id = $_POST['id'];

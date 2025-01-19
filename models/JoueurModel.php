@@ -131,7 +131,7 @@ class JoueurModel
         $stmt->bindParam(':id', $id);
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $result ? $result : false;
+        return $result ? true : false;
     }
 
     /**
